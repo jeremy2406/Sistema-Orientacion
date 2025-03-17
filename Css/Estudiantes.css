@@ -1,0 +1,390 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+@media print {
+ .table, .table__body {
+  overflow: visible;
+  height: auto !important;
+  width: auto !important;
+ }
+}
+
+body {
+    min-height: 100vh;
+    background: #f4f4f4;
+}
+
+.body {
+    margin-left: 220px;  
+    padding: 20px;
+    min-height: calc(100vh - 50px);  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main.table {
+    width: 95%;
+    height: 85vh;
+    background-color: #ffffff;
+    box-shadow: 0 12px 30px rgba(13, 55, 87, 0.2);
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(13, 55, 87, 0.1);
+}
+
+.table__body {
+    width: 95%;
+    max-height: calc(89% - 1.6rem);
+    background-color: #ffffff;
+    margin: 1rem auto;
+    border-radius: 0.8rem;
+    box-shadow: inset 0 0 15px rgba(13, 55, 87, 0.08);
+    border: 1px solid rgba(13, 55, 87, 0.05);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+tbody tr {
+    border-bottom: 1px solid rgba(13, 55, 87, 0.05);
+    transition: all 0.15s ease-in-out;  /* Reduced from 0.2s to 0.15s */
+}
+
+tbody tr:hover {
+    background-color: rgba(13, 55, 87, 0.05) !important;
+    transform: scale(1.002);  /* Reduced scale effect */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+}
+
+/* Enhanced scrollbar styling */
+.table__body::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f5f5f5;
+}
+
+.table__body::-webkit-scrollbar-track {
+    background: rgba(13, 55, 87, 0.05);
+    border-radius: 8px;
+    margin: 8px 0;
+}
+
+.table__body::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #0D3757, #2980b9);
+    border-radius: 8px;
+    border: 2px solid #f5f5f5;
+    transition: all 0.2s ease;
+}
+
+.table__body::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #2980b9, #0D3757);
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(13, 55, 87, 0.02);
+}
+
+/* Customize scrollbar */
+.table__body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table__body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table__body::-webkit-scrollbar-thumb {
+    background: #0D3757;
+    border-radius: 4px;
+}
+
+.table__body::-webkit-scrollbar-thumb:hover {
+    background: #0a2940;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    padding: 1rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+tbody tr:hover{
+    background-color: rgb(138, 137, 137);
+}
+
+.status {
+    padding: .5rem 0;
+    border-radius: 2rem;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+    min-width: 120px;
+}
+
+.table__header {
+    width: 100%;
+    height: 10%;
+    background-color: #0D3757;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.table__header h1 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.table__body {
+    width: 95%;
+    max-height: calc(89% - 1.6rem);
+    background-color: #ffffff;
+    margin: 1rem auto;
+    border-radius: 0.8rem;
+    box-shadow: inset 0 0 10px rgba(13, 55, 87, 0.05);
+}
+
+thead th {
+    background-color: #f4f6f8;
+    color: #0D3757;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #e0e4e8;
+}
+
+tbody tr:hover {
+    background-color: rgba(13, 55, 87, 0.04) !important;
+    transition: all 0.2s ease;
+}
+
+td img {
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #0D3757;
+}
+
+.correcto {
+    background-color: rgba(39, 174, 96, 0.15);
+    color: #27ae60;
+}
+
+.status.grave {
+    background-color: rgba(236, 187, 39, 0.15);
+    color: #938306;
+}
+
+.status.muy-grave {
+    background-color: rgba(192, 57, 43, 0.15);
+    color: #c0392b;
+}
+
+.table__body::-webkit-scrollbar{
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.table__body::-webkit-scrollbar-thumb{
+    border-radius: .5rem;
+    background-color: #0004;
+    visibility: hidden;
+}
+
+.table__body:hover::-webkit-scrollbar-thumb{ 
+    visibility: visible;
+}
+
+
+table {
+    width: 100%;
+}
+
+td img {
+    width: 36px;
+    height: 36px;
+    margin-right: .5rem;
+    border-radius: 50%;
+
+    vertical-align: middle;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    padding: 1rem;
+    text-align: left;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: #d5d1defe;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #0000000b;
+}
+
+tbody tr {
+    --delay: .1s;
+    transition: .5s ease-in-out var(--delay), background-color 0s;
+}
+
+tbody tr.hide {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+tbody tr:hover {
+    background-color: #fff6 !important;
+}
+
+tbody tr td,
+tbody tr td p,
+tbody tr td img {
+    transition: .2s ease-in-out;
+}
+
+tbody tr.hide td,
+tbody tr.hide td p {
+    padding: 0;
+    font: 0 / 0 sans-serif;
+    transition: .2s ease-in-out .5s;
+}
+
+tbody tr.hide td img {
+    width: 0;
+    height: 0;
+    transition: .2s ease-in-out .5s;
+}
+
+
+@media (max-width: 1000px) {
+    td:not(:first-of-type) {
+        min-width: 12.1rem;
+    }
+}
+
+thead th span.icon-arrow {
+    display: inline-block;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    border: 1.4px solid transparent;
+    
+    text-align: center;
+    font-size: 1rem;
+    
+    margin-left: .5rem;
+    transition: .2s ease-in-out;
+}
+
+thead th:hover span.icon-arrow{
+    border: 1.4px solid #6c00bd;
+}
+
+thead th:hover {
+    color: #6c00bd;
+}
+
+thead th.active span.icon-arrow{
+    background-color: #6c00bd;
+    color: #fff;
+}
+
+thead th.asc span.icon-arrow{
+    transform: rotate(180deg);
+}
+
+thead th.active,tbody td.active {
+    color: #6c00bd;
+}
+
+.export__file {
+    position: relative;
+}
+
+.export__file .export__file-btn {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background: #fff6 url(images/export.png) center / 80% no-repeat;
+    border-radius: 50%;
+    transition: .2s ease-in-out;
+}
+
+.export__file .export__file-btn:hover { 
+    background-color: #fff;
+    transform: scale(1.15);
+    cursor: pointer;
+}
+
+.export__file input {
+    display: none;
+}
+
+.export__file .export__file-options {
+    position: absolute;
+    right: 0;
+    width: 12rem;
+    border-radius: .5rem;
+    overflow: hidden;
+    text-align: center;
+    opacity: 0;
+    transform: scale(.8);
+    transform-origin: top right;
+    box-shadow: 0 .2rem .5rem #0004;
+    transition: .2s;
+}
+
+.export__file input:checked + .export__file-options {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 100;
+}
+
+.export__file .export__file-options label{
+    display: block;
+    width: 100%;
+    padding: .6rem 0;
+    background-color: #f2f2f2;
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    transition: .2s ease-in-out;
+}
+
+.export__file .export__file-options label:first-of-type{
+    padding: 1rem 0;
+    background-color: #86e49d !important;
+}
+
+.export__file .export__file-options label:hover{
+    transform: scale(1.05);
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.export__file .export__file-options img{
+    width: 2rem;
+    height: auto;
+}
