@@ -7,10 +7,10 @@
     </div>
     <ul>
         <li><a href="./Estudiantes.php"><i class="fas fa-handshake"></i> Estudiantes</a></li>
-        <li><a href="#"><i class="fas fa-user-graduate"></i> Excusas</a></li>
-        <li><a href="#"><i class="fas fa-book-open"></i> Calendario</a></li>
-        <li><a href="#"><i class="fas fa-book"></i> Tardanzas</a></li>
-        <li><a href="#"><i class="fas fa-cogs"></i> Faltas</a></li>
-        <li><a href="#"><i class="fas fa-chart-bar"></i> Reportes</a></li>
+        <li><a href="./Excusas.php"><i class="fas fa-user-graduate"></i> Excusas</a></li>
+        <li><a href="./Calendario.php"><i class="fas fa-book-open"></i> Calendario</a></li>
+        <li><a href="./Tardanzas.php"><i class="fas fa-book"></i> Tardanzas</a></li>
+        <li><a href="./Faltas.php"><i class="fas fa-cogs"></i> Faltas</a></li>
+        <li><a href="./Reportes.php"><i class="fas fa-chart-bar"></i> Reportes</a></li>
     </ul>
 </aside>
