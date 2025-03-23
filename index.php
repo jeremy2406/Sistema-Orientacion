@@ -13,8 +13,4 @@
         <div class="card settings"><i class="fas fa-cog"></i> ......</div>
     </div>
 </div>
-<script src="../SistemaOrientacion/Js/script.js">
-    
-</script>
-</body>
-</html>
+<?php include 'Componentes/footer.php'; ?>

@@ -1,111 +1,169 @@
+/* CSS PRINCIPAL */
+* {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* ENCABEZADO */
 header {
-    background: #0D3757;
-    color: white;
-    padding: 15px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  background: #0D3757;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .user-info {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 /* MENÚ LATERAL */
 .sidebar {
-    background: white;
-    width: 220px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding-top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 78px;
+  background: #0D3757;
+  padding: 6px 14px;
+  transition: all 0.5s ease;
 }
 
-.logo {
-    text-align: center;
-    padding: 10px;
+.sidebar .logo_content .logo {
+  color: #ffff;
+  display: flex;
+  height: 50px;
+  width: 100%;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.logo img {
-    width: 80px;
-    object-fit: cover;
-    height: 80px;
+.logo_content .logo a img {
+  font-size: 28px;
+  margin-right: 5px;
+  height: 50px;
+  width: 50px;
 }
 
-.logo h2 {
-    color: white;
-    font-size: 18px;
-    margin-top: 5px;
+.logo_content .logo .logo_name {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.sidebar #btn {
+  position: absolute;
+  color: #ffff;
+  left: 50%;
+  top: 6px;
+  font-size: 20px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  line-height: 50px;
+  transform: translateX(-50%);
+}
+
+.sidebar.active #btn {
+  left: 90%;
 }
 
 .sidebar ul {
-    list-style: none;
-    padding: 0;
-    width: 100%;
+  margin-top: 20px;
 }
 
 .sidebar ul li {
-    padding: 15px;
-    text-align: left;
-    width: 100%;
+  position: relative;
+  height: 50px;
+  width: 100%;
+  margin: 0 5px;
+  list-style: none;
+  line-height: 50px;
 }
 
 .sidebar ul li a {
-    color: black;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
+  color: #ffff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  border-radius: 12px;
+  white-space: nowrap;
 }
 
-.sidebar ul li a i {
-    margin-right: 10px;
-    color: black;
+.sidebar ul li a:hover {
+  color: #0D3757;
+  background: black;
 }
 
-.sidebar ul li:hover {
-    background: #1a252f;
+.sidebar ul li i {
+  height: 50px;
+  min-width: 50px;
+  border-radius: 12px;
+  line-height: 50px;
+  text-align: center;
+}
+
+.sidebar.active {
+  width: 240px;
+}
+
+.sidebar.active .logo_content .logo {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar .link_name {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidebar.active .link_name {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* CONTENIDO PRINCIPAL */
 .main-content {
-    margin-left: 240px;
-    padding: 20px;
+  margin-left: 78px;
+  padding: 20px;
+  transition: all 0.5s ease;
 }
-.main-content h2{
-    
-    padding-bottom: 20px;
+
+.sidebar.active ~ .main-content {
+  margin-left: 240px;
 }
+
 .dashboard {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
 }
 
 .card {
-    padding: 20px;
-    color: white;
-    text-align: center;
-    border-radius: 5px;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  padding: 20px;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .card i {
-    font-size: 25px;
-    margin-right: 10px;
+  font-size: 25px;
+  margin-right: 10px;
 }
 
 .users { background: #16a085; }
@@ -116,3 +174,56 @@ header {
 .loans { background: #c0392b; }
 .subjects { background: #27ae60; }
 .settings { background: #34495e; }
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .dashboard {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+      width: 0;
+      overflow: hidden;
+  }
+  .sidebar.active {
+      width: 200px;
+  }
+  .main-content {
+      margin-left: 0;
+  }
+  .sidebar.active ~ .main-content {
+      margin-left: 200px;
+  }
+  .dashboard {
+      grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+      width: 0;
+      overflow: hidden;
+  }
+  .sidebar.active {
+      width: 180px;
+  }
+  .main-content {
+      margin-left: 0;
+  }
+
+  .sidebar.active ~ .main-content {
+      margin-left: 180px;
+  }
+  #btn {
+      position: fixed;
+      left: 10px;
+      top: 10px;
+      background: #0D3757;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+  }
+}

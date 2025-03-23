@@ -121,6 +121,5 @@
                 </table>
             </section>
         </main>
-    </dir>
-</body>
-</html>
+    </div>
+    <?php include 'Componentes/footer.php'; ?>
