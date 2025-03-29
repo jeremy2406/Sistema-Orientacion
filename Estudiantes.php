@@ -1,5 +1,7 @@
 <?php include 'Componentes/header.php'; ?>
 <?php include 'Componentes/Nav.php'; ?>
+<?php include 'Componentes/conexion.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,117 +11,56 @@
     <link rel="stylesheet" href="./Css/Estudiantes.css">
 </head>
 <body>
-    <div class="body">
-        <main class="table">
-            <section class="table__header">
-                <h1>Estudiantes</h1>
-            </section>
-            <section class="table__body">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Matricula</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Curso</th>
-                            <th>Seccion/Taller</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>5018293</td>
-                            <td> <img src="./Imagenes/User.png" alt="">Enmanuel De Jesus</td>
-                            <td>Abreu Santos</td>
-                            <td>6to</td>
-                            <td>DAAI</td>
-                            <td>
-                                <p class="status correcto">Correcto</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5018293</td>
-                            <td> <img src="./Imagenes/User.png" alt="">Jeremy Alberto</td>
-                            <td>Diaz Minaya</td>
-                            <td>6to</td>
-                            <td>DAAI</td>
-                            <td>
-                                <p class="status grave">Grave</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5018293</td>
-                            <td> <img src="./Imagenes/User.png" alt="">Marco Aurelio</td>
-                            <td>Santos Reyes</td>
-                            <td>6to</td>
-                            <td>DAAI</td>
-                            <td>
-                                <p class="status muy-grave">Muy grave</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5018293</td>
-                            <td> <img src="./Imagenes/User.png" alt="">Jesus</td>
-                            <td>Garcia Alvarez</td>
-                            <td>6to</td>
-                            <td>DAAI</td>
-                            <td>
-                                <p class="status muy-grave">Muy Grave</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5018293</td>
-                            <td> <img src="./Imagenes/User.png" alt="">Claudio Abel</td>
-                            <td>Rosario</td>
-                            <td>6to</td>
-                            <td>DAAI</td>
-                            <td>
-                                <p class="status grave">Grave</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5018293</td>
-                            <td> <img src="./Imagenes/User.png" alt="">Maria Anabel</td>
-                            <td>Mencia Liz</td>
-                            <td>6to</td>
-                            <td>DAAI</td>
-                            <td>
-                                <p class="status correcto">Correcto</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5018293</td>
-                            <td> <img src="./Imagenes/User.png" alt="">Nicole Miledy</td>
-                            <td>Rosario Ovallez</td>
-                            <td>6to</td>
-                            <td>DAAI</td>
-                            <td>
-                                <p class="status correcto">Correcto</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5018293</td>
-                            <td> <img src="./Imagenes/User.png" alt="">Arisleidy</td>
-                            <td>Holguin Vargas</td>
-                            <td>6to</td>
-                            <td>DAAI</td>
-                            <td>
-                                <p class="status correcto">Correcto</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5018293</td>
-                            <td> <img src="./Imagenes/User.png" alt="">Yosmailin</td>
-                            <td>Vazques</td>
-                            <td>6to</td>
-                            <td>DAAI</td>
-                            <td>
-                                <p class="status correcto">Correcto</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </main>
-    </div>
-    <?php include 'Componentes/footer.php'; ?>
+    
+</body>
+</html>
+
+<div class="body">
+    <main class="table">
+        <section class="table__header">
+            <h1>Estudiantes</h1>
+        </section>
+        <section class="table__body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Matricula</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Grado</th>
+                        <th>Sección/Taller</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $pdo = conectarDB();
+                    if ($pdo) {
+                        try {
+                            $stmt = $pdo->query('SELECT "Matricula", "Nombre", "Apellido", "Grado", "Seccion/Taller", "Status" FROM "Estudiantes"');
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                $statusClass = str_replace(' ', '-', strtolower($row['Status']));  
+                                echo "<tr>";
+                                echo "<td>{$row['Matricula']}</td>";
+                                echo "<td class='con-imagen'>
+                                    <img src='https://kzzpdsbtrujsssojvpzc.supabase.co/storage/v1/object/public/imagenes-usuarios/User.png' alt='user icon'>
+                                    {$row['Nombre']}
+                                </td>";
+                                echo "<td>{$row['Apellido']}</td>";
+                                echo "<td>{$row['Grado']}</td>";
+                                echo "<td>{$row['Seccion/Taller']}</td>";
+                                echo "<td><p class='status " . $statusClass . "'>{$row['Status']}</p></td>";
+                                echo "</tr>";
+                            }
+                        } catch (PDOException $e) {
+                            echo 'Error en la consulta: ' . $e->getMessage();
+                        }
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+
+<?php include 'Componentes/footer.php'; ?>
