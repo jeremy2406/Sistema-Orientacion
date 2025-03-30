@@ -1,10 +1,10 @@
 <?php
 function conectarDB() {
-    $host = 'aws-0-us-east-1.pooler.supabase.com';
+    $host = 'aws-0-us-west-1.pooler.supabase.com';
     $dbname = 'postgres';
-    $user = 'postgres.kzzpdsbtrujsssojvpzc';
-    $password = '1234567891';
-    $port = '5432';
+    $user = 'postgres.ussibaxhdgprcwotzzpl';  
+    $password = '6FchLUL5sul7pXXC';  
+    $port = '6543';
 
     try {
         $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $user, $password);
