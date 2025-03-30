@@ -9,6 +9,17 @@
 </head>
 <body>
 <header>
- 
-    <div class="user-info"><i class="fas fa-user"></i> (Admin)</div>
+    <?php
+    session_start();
+    $nombre_usuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
+    ?>
+    <div class="user-info">
+        <i class="fas fa-user"></i> <?php echo $nombre_usuario; ?> 
+        <div class="dropdown-menu">
+            <a href="./Login/cerrar_sesion.php">
+                <i class="fas fa-sign-out-alt"></i>
+                Cerrar Sesión
+            </a>
+        </div>
+    </div>
 </header>

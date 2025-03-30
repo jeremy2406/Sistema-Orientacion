@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/13fccec0c7.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../Css/login.css" />
+    <title>Inicio de Sesión</title>
+    <link rel="shortcut icon" href="../Imagenes/Logo.png" type="image/x-icon">
+  </head>
+  <body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form action="./Login.php" method="post" class="sign-in-form">
+            <h2 class="title">Acceder</h2>
+            <div class="input-field">
+                <i class="fa-solid fa-id-card"></i>
+                <input type="text" placeholder="Matricula" name="Matricula" required />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Nombre" name="Nombre_Estudiante" required />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Contraseña" name="Contrasena" required />
+            </div>
+            <input type="submit" value="Acceder" name="Acceder" class="btn solid"/>
+          </form>
+        </div>
+      </div>   
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <center><img src="../Imagenes/Logo.png" class="image" alt="" /></center>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
