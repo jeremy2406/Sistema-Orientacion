@@ -3,5 +3,5 @@ services:
     name: Sistema-Orientacion-php
     env: docker
     plan: free
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: ./dockerfile
     autoDeploy: true

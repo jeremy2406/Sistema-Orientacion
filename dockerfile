@@ -1,12 +1,14 @@
+# Usa la imagen oficial de PHP
 FROM php:8.2-cli
 
-# Instala dependencias necesarias
-RUN apt-get update && apt-get install -y unzip
-
-# Copia todo tu proyecto
-COPY . /var/www/html
+# Establece la carpeta donde correrá PHP
 WORKDIR /var/www/html
 
-# Expone el puerto 10000 y ejecuta el servidor PHP
+# Copia tu proyecto dentro del contenedor
+COPY . .
+
+# Expone el puerto para que Render lo reconozca
 EXPOSE 10000
+
+# Comando para correr el servidor
 CMD ["php", "-S", "0.0.0.0:10000"]
