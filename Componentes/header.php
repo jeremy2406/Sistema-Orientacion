@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +13,6 @@
 <body>
 <header>
     <?php
-    session_start();
     $nombre_usuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario';
     ?>
     <div class="user-info">
