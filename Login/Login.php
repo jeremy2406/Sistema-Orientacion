@@ -16,15 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Acceder'])) {
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($usuario) {
-                $_SESSION['usuario_id'] = $usuario['id'];
-                $_SESSION['nombre'] = $usuario['Nombre'];
-                $_SESSION['rol'] = $usuario['Rol'];
+                // Verificar que las claves existan antes de usarlas
+                $_SESSION['usuario_id'] = $usuario['id'] ?? null;
+                $_SESSION['nombre'] = $usuario['Nombre'] ?? '';
+                $_SESSION['rol'] = $usuario['Rol'] ?? 'estudiante'; // Valor por defecto si no existe
 
-                // ✅ Redirige antes de enviar contenido
+                // Asegurarse de que no haya salida antes de la redirección
+                if (ob_get_length()) ob_clean();
                 header('Location: ../index.php');
                 exit();
             } else {
-                // Marca un error para mostrarlo en el HTML luego
                 $errorLogin = true;
             }
         } catch (PDOException $e) {
@@ -32,10 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Acceder'])) {
         }
     }
 }
+
+// Asegurarse de que no haya salida antes de este punto
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .swal2-popup {
@@ -64,7 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Acceder'])) {
 <?php endif; ?>
 
 <?php if (isset($dbError)): ?>
-    <p>Error de base de datos: <?= htmlspecialchars($dbError) ?></p>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de base de datos',
+            text: <?= json_encode($dbError) ?>,
+            confirmButtonColor: '#0D3757'
+        });
+    </script>
 <?php endif; ?>
 </body>
 </html>
