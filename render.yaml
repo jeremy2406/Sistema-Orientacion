@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: Sistema-Orientacion-php
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
