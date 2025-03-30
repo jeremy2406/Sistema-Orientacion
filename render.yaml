@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: Sistema-Orientacion-php
+    name: proyecto-php
     env: docker
     plan: free
     dockerfilePath: ./dockerfile
