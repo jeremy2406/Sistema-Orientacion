@@ -1,5 +1,10 @@
-<?php include 'Componentes/header.php'; ?>
-<?php include 'Componentes/Nav.php'; ?>
+<?php 
+// Definir la ruta base
+$base_path = dirname(__FILE__);
+
+include $base_path . '/Componentes/header.php';
+include $base_path . '/Componentes/Nav.php';
+?>
 
 <div class="main-content">
     <h2>Panel de Administración</h2>
@@ -46,4 +51,4 @@
     </div>
 </div>
 
-<?php include 'Componentes/footer.php'; ?>
+<?php include $base_path . '/Componentes/footer.php'; ?>
