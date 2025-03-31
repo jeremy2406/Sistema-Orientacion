@@ -76,5 +76,7 @@
             .catch(error => console.error('Error:', error));
     });
     </script>
+    <?php
+    include 'Componentes/footer.php';?>
 </body>
 </html>
