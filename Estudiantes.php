@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudiantes</title>
     <link rel="stylesheet" href="./Css/Estudiantes.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="body">
@@ -37,10 +38,13 @@
                         $pdo = conectarDB();
                         if ($pdo) {
                             try {
-                                $stmt = $pdo->query('SELECT "Matricula", "Nombre", "Apellido", "Grado", "Seccion/Taller", "Status" FROM "Estudiantes"');
+                                $stmt = $pdo->query('SELECT "Matricula", "Nombre", "Apellido", "Grado", "Seccion/Taller", "Status" FROM "Estudiante"');
                                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                     $statusClass = str_replace(' ', '-', strtolower($row['Status']));  
-                                    echo "<tr class='student-row' data-student='{$row['Nombre']} {$row['Apellido']}' data-image='https://kzzpdsbtrujsssojvpzc.supabase.co/storage/v1/object/public/imagenes-usuarios/User.png'>";
+                                    echo "<tr class='student-row' 
+                                        data-student='{$row['Nombre']} {$row['Apellido']}' 
+                                        data-image='https://kzzpdsbtrujsssojvpzc.supabase.co/storage/v1/object/public/imagenes-usuarios/User.png'
+                                        data-id='{$row['Matricula']}'>";  
                                     echo "<td>{$row['Matricula']}</td>";
                                     echo "<td class='con-imagen'>
                                         <img src='https://kzzpdsbtrujsssojvpzc.supabase.co/storage/v1/object/public/imagenes-usuarios/User.png' alt='user icon'>
@@ -63,7 +67,6 @@
         </main>
     </div>
 
-<!-- Remove the <style> section and keep only the modal HTML and JavaScript -->
 <div id="studentModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -71,14 +74,38 @@
             <img id="modalStudentImage" src="" alt="Student">
             <h2 id="modalStudentName"></h2>
         </div>
-        <form id="tardanzaForm" action="procesar_tardanza.php" method="POST">
+        <form id="tardanzaForm" action="./procesar_tardanza.php" method="POST">
             <h3>Registrar Tardanza</h3>
             <div class="form-group">
                 <label for="justificacion">Justificación:</label>
                 <textarea id="justificacion" name="justificacion" required></textarea>
             </div>
+            <input type="hidden" id="estudiante_id" name="estudiante_id" value="">
+            <input type="hidden" id="fecha_actual" name="fecha_actual" value="">
             <button type="submit" class="submit-btn">Registrar Tardanza</button>
         </form>
+
+        <script>
+        document.getElementById('tardanzaForm').addEventListener('submit', function(e) {
+            const now = new Date();
+            document.getElementById('fecha_actual').value = now.toISOString().slice(0, 19).replace('T', ' ');
+        });
+        </script>
+
+        <script>
+        document.querySelectorAll('.student-row').forEach(row => {
+            row.addEventListener('click', function() {
+                const studentName = this.getAttribute('data-student');
+                const studentImage = this.getAttribute('data-image');
+                const studentId = this.getAttribute('data-id');
+                
+                modalStudentName.textContent = studentName;
+                modalStudentImage.src = studentImage;
+                document.getElementById('estudiante_id').value = studentId;
+                modal.style.display = "block";
+            });
+        });
+        </script>
     </div>
 </div>
 
@@ -122,6 +149,19 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
     });
 });
 </script>
+<?php if (isset($_SESSION['swal_message'])): ?>
+<script>
+    Swal.fire({
+        title: <?= json_encode($_SESSION['swal_message']['title']) ?>,
+        text: <?= json_encode($_SESSION['swal_message']['text']) ?>,
+        icon: <?= json_encode($_SESSION['swal_message']['icon']) ?>,
+        confirmButtonColor: '#0D3757'
+    });
+</script>
+<?php 
+    unset($_SESSION['swal_message']);
+endif; 
+?>
 </body>
 
 <?php include 'Componentes/footer.php'; ?>

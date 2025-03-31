@@ -1,0 +1,136 @@
+.pie-pagina {
+    width: calc(100% - 80px);
+    margin-left: 78px;
+    background: linear-gradient(135deg, #274efc, #0a4588);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.8s ease forwards;
+    position: relative;
+    clear: both;
+    margin-top: 50px;
+}
+
+/* Ajuste para cuando el sidebar está expandido */
+.sidebar.active ~ .pie-pagina {
+    width: calc(100% - 240px);
+    margin-left: 240px;
+}
+
+.pie-pagina .grupo-1 {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 30px 15px;
+    background: transparent !important;
+}
+
+.pie-pagina .grupo-1 .boxfoot {
+    width: 100%;
+    padding: 0 10px;
+    background: transparent !important; /* Forzar transparencia */
+}
+
+/* Figure para mapas, imágenes o videos */
+.pie-pagina .grupo-1 .boxfoot figure {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.pie-pagina .grupo-1 .boxfoot figure iframe {
+    width: 100%;
+    height: 180px;
+    border-radius: 8px;
+    border: none;
+}
+
+/* Títulos en el footer */
+.pie-pagina .grupo-1 .boxfoot h2 {
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+
+/* Párrafos */
+.pie-pagina .grupo-1 .boxfoot p {
+    color: #efefef;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Enlaces de redes sociales */
+.pie-pagina .grupo-1 .red-social a {
+    display: inline-block;
+    text-decoration: none;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    color: #fff;
+    margin-right: 10px;
+    background-color: #164c89;
+    text-align: center;
+    border-radius: 50%;
+    transition: transform 300ms ease, background-color 300ms ease, color 300ms ease;
+}
+
+.pie-pagina .grupo-1 .red-social a:hover {
+    color: aqua;
+    transform: scale(1.1); /* Efecto de escala */
+}
+
+/* Sección inferior del footer */
+.pie-pagina .grupo-2 {
+    background-color: rgba(0, 0, 0, 0.1); /* Sutil oscurecimiento */
+    padding: 15px 10px;
+    text-align: center;
+    color: #fff;
+}
+
+.pie-pagina .grupo-2 small {
+    font-size: 15px;
+}
+
+.pie-pagina .grupo-2 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* ==============================================
+   MEDIA QUERIES (RESPONSIVE)
+   ============================================== */
+
+/* Dispositivos con ancho máximo de 768px */
+@media screen and (max-width: 768px) {
+    .pie-pagina {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .sidebar.active ~ .pie-pagina {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .pie-pagina .grupo-1 {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        text-align: center;
+    }
+}
+
+/* Pantallas muy pequeñas (opcional) */
+@media screen and (max-width: 480px) {
+    .pie-pagina .grupo-1 .boxfoot h2 {
+        font-size: 18px;
+    }
+    .pie-pagina .grupo-2 small {
+        font-size: 14px;
+    }
+}
+  
