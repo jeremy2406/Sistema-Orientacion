@@ -7,7 +7,6 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Orientación</title>
-    <base href="/Sistema-Orientacion/">
     <link rel="shortcut icon" href="Imagenes/Logo.png" type="image/x-icon">
     <link rel="stylesheet" href="Css/Estilos.css">
     <link rel="stylesheet" href="Css/footer.css">

@@ -1,6 +1,14 @@
 <?php include 'Componentes/header.php'; ?>
 <?php include 'Componentes/Nav.php'; ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Estilos.css">
+</head>
+<body>
 <div class="main-content">
     <h2>Panel de Administración</h2>
     <div class="dashboard">
@@ -45,5 +53,7 @@
         </div>
     </div>
 </div>
+</body>
+</html>
 
 <?php include 'Componentes/footer.php'; ?>
