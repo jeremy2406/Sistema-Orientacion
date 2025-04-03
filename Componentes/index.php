@@ -1,5 +1,5 @@
-<?php include './Componentes/header.php'; ?>
-<?php include './Componentes/Nav.php'; ?>
+<?php include '../Componentes/header.php'; ?>
+<?php include '../Componentes/Nav.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -57,4 +57,4 @@
 </body>
 </html>
 
-<?php include './Componentes/footer.php'; ?>
+<?php include '../Componentes/footer.php'; ?>

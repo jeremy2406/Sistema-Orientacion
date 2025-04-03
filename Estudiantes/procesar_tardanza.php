@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     
-    header('Location: ../Estudiantes.php');
+    header('Location: ../Estudiantes/Estudiantes.php');
     exit();
 }
 ?>
