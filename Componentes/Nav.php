@@ -1,7 +1,7 @@
 <aside class="sidebar">
     <div class="logo_content">
         <div class="logo">
-        <a href="../index.php">
+        <a href="../Componentes/index.php">
             <img src="../Imagenes/Logo.png" alt="Logo">
         </a>
             <div class="logo_name">Orientación</div>
