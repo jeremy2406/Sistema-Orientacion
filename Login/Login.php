@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Acceder'])) {
 
                 // Asegurarse de que no haya salida antes de la redirección
                 if (ob_get_length()) ob_clean();
-                header('Location: ../index.php');
+                header('Location: ../Componentes/index.php');
                 exit();
             } else {
                 $errorLogin = true;
