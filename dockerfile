@@ -3,11 +3,14 @@ FROM php:8.2-apache
 # Instala el driver de PostgreSQL y dependencias necesarias
 RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql
 
-# Copia el archivo index primero
-COPY componentes/index.php /var/www/html/index.php
-
-# Copia el resto del proyecto dentro del contenedor
+# Copia todos los archivos del proyecto al directorio web de Apache
 COPY . /var/www/html/
 
-# Exponer el puerto para Render
+# Habilita el uso de .htaccess y mod_rewrite
+RUN a2enmod rewrite
+
+# Establece permisos apropiados
+RUN chown -R www-data:www-data /var/www/html
+
+# Exponer el puerto que usará Apache
 EXPOSE 80
