@@ -1,6 +1,6 @@
-<?php include 'Componentes/header.php'; ?>
-<?php include 'Componentes/Nav.php'; ?>
-<?php include 'Componentes/conexion.php'; ?>
+<?php include '../Componentes/header.php'; ?>
+<?php include '../Componentes/Nav.php'; ?>
+<?php include '../Componentes/conexion.php'; ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tardanzas</title>
-    <link rel="stylesheet" href="./Css/Tardanzas.css">
+    <link rel="stylesheet" href="../Css/Tardanzas.css">
 </head>
 <body>
     <div class="body">
@@ -79,6 +79,6 @@
     });
     </script>
     <?php
-    include 'Componentes/footer.php';?>
+    include '../Componentes/footer.php';?>
 </body>
 </html>

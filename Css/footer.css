@@ -1,7 +1,7 @@
 .pie-pagina {
     width: calc(100% - 80px);
     margin-left: 78px;
-    background: linear-gradient(135deg, #274efc, #0a4588);
+    background: linear-gradient(135deg, #0D3757, #0a4588);
     color: #fff;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
     transition: all 0.3s ease;

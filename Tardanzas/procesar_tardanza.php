@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'Componentes/conexion.php';
+include '../Componentes/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $justificacion = $_POST['justificacion'];
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     
-    header('Location: ./Estudiantes.php');
+    header('Location: ../Estudiantes.php');
     exit();
 }
 ?>

@@ -1,6 +1,6 @@
-<?php include 'Componentes/header.php'; ?>
-<?php include 'Componentes/Nav.php'; ?>
-<?php include 'Componentes/conexion.php'; ?>
+<?php include '../Componentes/header.php'; ?>
+<?php include '../Componentes/Nav.php'; ?>
+<?php include '../Componentes/conexion.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudiantes</title>
-    <link rel="stylesheet" href="./Css/Estudiantes.css">
+
+    <link rel="stylesheet" href="../Css/Estudiantes.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -164,5 +165,5 @@ endif;
 ?>
 </body>
 
-<?php include 'Componentes/footer.php'; ?>
+<?php include '../Componentes/footer.php'; ?>
 </html>
