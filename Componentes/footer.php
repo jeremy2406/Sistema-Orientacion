@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="grupo-2">
-                <small>&copy; 2025 <b>6TO DAAI</b> - Todos los Derechos Reservados. <a href=""><B>Politica y
+                <small>&copy; 2025 <b>EJM</b> - Todos los Derechos Reservados. <a href=""><B>Politica y
                             Privacidad</B></a></small>
             </div>
         </footer>

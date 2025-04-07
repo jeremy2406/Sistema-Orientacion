@@ -30,7 +30,7 @@
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Grado</th>
-                            <th>Sección/Taller</th>
+                            <th>Taller/Seccion</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -44,17 +44,15 @@
                                     $statusClass = str_replace(' ', '-', strtolower($row['Status']));  
                                     echo "<tr class='student-row' 
                                         data-student='{$row['Nombre']} {$row['Apellido']}' 
-                                        data-image='https://kzzpdsbtrujsssojvpzc.supabase.co/storage/v1/object/public/imagenes-usuarios/User.png'
                                         data-id='{$row['Matricula']}'>";  
                                     echo "<td>{$row['Matricula']}</td>";
-                                    echo "<td class='con-imagen'>
-                                        <img src='https://kzzpdsbtrujsssojvpzc.supabase.co/storage/v1/object/public/imagenes-usuarios/User.png' alt='user icon'>
-                                        {$row['Nombre']}
-                                    </td>";
+                                    echo "<td>{$row['Nombre']}</td>";
                                     echo "<td>{$row['Apellido']}</td>";
                                     echo "<td>{$row['Grado']}</td>";
                                     echo "<td>{$row['Seccion/Taller']}</td>";
-                                    echo "<td><p class='status " . $statusClass . "'>{$row['Status']}</p></td>";
+                                    echo "<td class='status-cell'>
+                                        <p class='status " . $statusClass . "'>{$row['Status']}</p>
+                                    </td>";
                                     echo "</tr>";
                                 }
                             } catch (PDOException $e) {
@@ -72,7 +70,6 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <div class="student-info">
-            <img id="modalStudentImage" src="" alt="Student">
             <h2 id="modalStudentName"></h2>
         </div>
         <form id="tardanzaForm" action="./procesar_tardanza.php" method="POST">
@@ -85,84 +82,138 @@
             <input type="hidden" id="fecha_actual" name="fecha_actual" value="">
             <button type="submit" class="submit-btn">Registrar Tardanza</button>
         </form>
+    </div>
+</div>
 
-        <script>
-        document.getElementById('tardanzaForm').addEventListener('submit', function(e) {
-            const now = new Date();
-            document.getElementById('fecha_actual').value = now.toISOString().slice(0, 19).replace('T', ' ');
-        });
-        </script>
-
-        <script>
-        document.querySelectorAll('.student-row').forEach(row => {
-            row.addEventListener('click', function() {
-                const studentName = this.getAttribute('data-student');
-                const studentImage = this.getAttribute('data-image');
-                const studentId = this.getAttribute('data-id');
-                
-                modalStudentName.textContent = studentName;
-                modalStudentImage.src = studentImage;
-                document.getElementById('estudiante_id').value = studentId;
-                modal.style.display = "block";
-            });
-        });
-        </script>
+<div id="faltaModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="student-info">
+            <h2 id="faltaModalStudentName"></h2>
+        </div>
+        <div class="faltas-summary">
+            <div class="falta-count leve">
+                <label>Leves</label>
+                <span>0</span>
+            </div>
+            <div class="falta-count grave">
+                <label>Graves</label>
+                <span>0</span>
+            </div>
+            <div class="falta-count muy-grave">
+                <label>Muy Graves</label>
+                <span>0</span>
+            </div>
+        </div>
+        <form id="faltaModalForm" action="../Faltas/procesar_falta.php" method="POST">
+            <h3>Registrar Falta</h3>
+            <div class="form-group">
+                <label for="fecha_falta">Fecha:</label>
+                <input type="datetime-local" id="fecha_falta" name="fecha_falta" required>
+            </div>
+            <div class="form-group">
+                <label for="tipo_falta">Tipo de Falta:</label>
+                <select id="tipo_falta" name="tipo_falta" required>
+                    <option value="">Seleccione el tipo de falta</option>
+                    <option value="leve">Leve</option>
+                    <option value="grave">Grave</option>
+                    <option value="muy-grave">Muy Grave</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="justificacion">Justificación:</label>
+                <textarea id="justificacion" name="justificacion" required></textarea>
+            </div>
+            <input type="hidden" id="matricula_estudiantes" name="matricula_estudiantes" value="">
+            <button type="submit" class="submit-btn">Registrar Falta</button>
+        </form>
     </div>
 </div>
 
 <script>
-const modal = document.getElementById("studentModal");
-const span = document.getElementsByClassName("close")[0];
-const modalStudentName = document.getElementById("modalStudentName");
-const modalStudentImage = document.getElementById("modalStudentImage");
-
-document.querySelectorAll('.student-row').forEach(row => {
-    row.addEventListener('click', function() {
-        const studentName = this.getAttribute('data-student');
-        const studentImage = this.getAttribute('data-image');
-        
-        modalStudentName.textContent = studentName;
-        modalStudentImage.src = studentImage;
-        modal.style.display = "block";
+document.addEventListener('DOMContentLoaded', function() {
+    // Add SweetAlert handling for both forms
+    document.getElementById('tardanzaForm').addEventListener('submit', function(e) {
+        const now = new Date();
+        document.getElementById('fecha_actual').value = now.toISOString().slice(0, 19).replace('T', ' ');
     });
-});
 
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-document.getElementById('searchInput').addEventListener('keyup', function() {
-    let searchText = this.value.toLowerCase();
-    let tableRows = document.querySelectorAll('.table__body tbody tr');
-    
-    tableRows.forEach(row => {
-        let nombre = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-        if(nombre.includes(searchText)) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
+    document.getElementById('faltaModalForm').addEventListener('submit', function(e) {
+        const now = new Date();
+        document.getElementById('fecha_falta').value = now.toISOString().slice(0, 16);
     });
-});
-</script>
-<?php if (isset($_SESSION['swal_message'])): ?>
-<script>
+
+    // Show SweetAlert if there's a message in session
+    <?php if (isset($_SESSION['swal_message'])): ?>
     Swal.fire({
         title: <?= json_encode($_SESSION['swal_message']['title']) ?>,
         text: <?= json_encode($_SESSION['swal_message']['text']) ?>,
         icon: <?= json_encode($_SESSION['swal_message']['icon']) ?>,
         confirmButtonColor: '#0D3757'
     });
+    <?php 
+        unset($_SESSION['swal_message']);
+    endif; 
+    ?>
+
+    // Tardanza modal handling
+    document.querySelectorAll('.student-row').forEach(row => {
+        row.addEventListener('click', function() {
+            const studentName = this.getAttribute('data-student');
+            const studentId = this.getAttribute('data-id');
+            
+            document.getElementById('modalStudentName').textContent = studentName;
+            document.getElementById('estudiante_id').value = studentId;
+            document.getElementById('studentModal').style.display = "block";
+        });
+    });
+
+    // Faltas modal handling
+    document.querySelectorAll('.status-cell').forEach(cell => {
+        cell.addEventListener('click', async function(e) {
+            e.stopPropagation();
+            const row = this.closest('tr');
+            const studentId = row.getAttribute('data-id');
+            const studentName = row.getAttribute('data-student');
+            
+            try {
+                const response = await fetch(`get_faltas_count.php?id=${studentId}`);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const counts = await response.json();
+                
+                document.querySelector('.falta-count.leve span').textContent = counts.leves;
+                document.querySelector('.falta-count.grave span').textContent = counts.graves;
+                document.querySelector('.falta-count.muy-grave span').textContent = counts.muy_graves;
+            } catch (error) {
+                console.error('Error fetching faltas:', error);
+            }
+            
+            document.getElementById('faltaModalStudentName').textContent = studentName;
+            document.getElementById('matricula_estudiantes').value = studentId;
+            document.getElementById('faltaModal').style.display = "block";
+        });
+    });
+
+    // Close buttons for both modals
+    document.querySelectorAll('.close').forEach(closeBtn => {
+        closeBtn.onclick = function() {
+            this.closest('.modal').style.display = "none";
+        }
+    });
+
+    // Click outside to close modals
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = "none";
+        }
+    }
+
+    // Set default datetime for falta form
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById('fecha_falta').value = now.toISOString().slice(0, 16);
+});
 </script>
-<?php 
-    unset($_SESSION['swal_message']);
-endif; 
-?>
 </body>
 
 <?php include '../Componentes/footer.php'; ?>

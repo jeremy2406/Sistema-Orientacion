@@ -124,7 +124,7 @@ thead th {
     color: #0D3757;
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 16.5px;
+    font-size: 16px;
     letter-spacing: 0.5px;
     border-bottom: 2px solid #e0e4e8;
     padding: 1rem;
@@ -193,7 +193,7 @@ td img {
     color: #c0392b;
 }
 
-/* Modal Styles */
+/* Update modal styles */
 .modal {
     display: none;
     position: fixed;
@@ -204,17 +204,175 @@ td img {
     height: 100%;
     background-color: rgba(0,0,0,0.5);
     backdrop-filter: blur(5px);
+    overflow-y: auto;
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    position: relative;
+    margin: 5vh auto;
+    padding: 30px;
+    border: none;
+    width: 90%;
     max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Add smooth scrollbar styling for modal content */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: rgba(13, 55, 87, 0.05);
+    border-radius: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #0D3757;
+    border-radius: 8px;
+    border: 2px solid #fefefe;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #0a2845;
+}
+
+.faltas-summary {
+    background-color: #f8f9fa;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    padding: 20px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.falta-count {
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 12px;
+    min-width: 120px;
+}
+
+.falta-count.leve {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+    border: 1px solid rgba(39, 174, 96, 0.2);
+}
+
+.falta-count.grave {
+    background-color: rgba(236, 187, 39, 0.1);
+    color: #938306;
+    border: 1px solid rgba(236, 187, 39, 0.2);
+}
+
+.falta-count.muy-grave {
+    background-color: rgba(192, 57, 43, 0.1);
+    color: #c0392b;
+    border: 1px solid rgba(192, 57, 43, 0.2);
+}
+
+.falta-count span {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.falta-count label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
+
+/* Update form group styles */
+.form-group {
+    margin-bottom: 25px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(13, 55, 87, 0.1);
+    transition: all 0.3s ease;
+}
+
+.form-group:hover {
+    border-color: rgba(13, 55, 87, 0.2);
+    box-shadow: 0 3px 10px rgba(13, 55, 87, 0.05);
+}
+
+.form-group label {
+    display: block;
+    color: #0D3757;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.form-group select,
+.form-group input[type="datetime-local"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid rgba(13, 55, 87, 0.15);
+    border-radius: 10px;
+    font-family: inherit;
+    color: #0D3757;
+    background-color: #fff;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.form-group select:hover,
+.form-group input[type="datetime-local"]:hover {
+    border-color: rgba(13, 55, 87, 0.3);
+}
+
+.form-group select:focus,
+.form-group input[type="datetime-local"]:focus {
+    border-color: #0D3757;
+    box-shadow: 0 0 0 3px rgba(13, 55, 87, 0.1);
+    outline: none;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid rgba(13, 55, 87, 0.15);
+    border-radius: 10px;
+    min-height: 120px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-group textarea:focus {
+    border-color: #0D3757;
+    box-shadow: 0 0 0 3px rgba(13, 55, 87, 0.1);
+    outline: none;
+}
+
+.submit-btn {
+    background-color: #0D3757;
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #0a2845;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(13, 55, 87, 0.2);
 }
 
 .student-info {
@@ -246,33 +404,43 @@ td img {
 
 .form-group label {
     display: block;
+    color: #0D3757;
     margin-bottom: 8px;
-    color: #333;
+    font-weight: 500;
 }
 
+.form-group select,
+.form-group input[type="datetime-local"],
 .form-group textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid rgba(13, 55, 87, 0.2);
     border-radius: 8px;
-    min-height: 100px;
     font-family: inherit;
-    resize: none;
+    color: #0D3757;
+    background-color: #fff;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
 }
 
 .submit-btn {
     background-color: #0D3757;
     color: white;
-    padding: 12px 25px;
+    padding: 12px 24px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
 }
 
 .submit-btn:hover {
-    background-color: #0a2940;
-    transform: translateY(-2px);
+    background-color: #0a2845;
 }
 
 /* Modal Close Button */
@@ -324,5 +492,45 @@ td img {
     td:not(:first-of-type) {
         min-width: 12.1rem;
     }
+}
+
+/* Faltas Counter Styles */
+.faltas-counter {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 8px;
+    font-size: 0.75rem;
+}
+
+.counter {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.counter.leve {
+    background-color: rgba(39, 174, 96, 0.15);
+    color: #27ae60;
+}
+
+.counter.grave {
+    background-color: rgba(236, 187, 39, 0.15);
+    color: #938306;
+}
+
+.counter.muy-grave {
+    background-color: rgba(192, 57, 43, 0.15);
+    color: #c0392b;
+}
+
+.status-cell {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.status-cell:hover {
+    background-color: rgba(13, 55, 87, 0.05);
 }
 

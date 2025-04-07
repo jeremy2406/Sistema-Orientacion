@@ -1,0 +1,23 @@
+@import 'Estudiantes.css';
+
+.date-selector {
+    margin-bottom: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 17.5px;
+}
+
+.date-selector input[type="date"] {
+    padding: 8px 12px;
+    border: 1px solid rgba(13, 55, 87, 0.2);
+    border-radius: 8px;
+    font-family: inherit;
+    color: #0D3757;
+}
+
+.date-selector label {
+    color: #0D3757;
+    font-weight: 500;
+} 
