@@ -21,7 +21,7 @@ session_start();
     <div class="user-info">
         <i class="fas fa-user"></i> <?php echo $nombre_usuario; ?> 
         <div class="dropdown-menu">
-            <a href="./Login/cerrar_sesion.php">
+            <a href="../Login/Login.html">
                 <i class="fas fa-sign-out-alt"></i>
                 Cerrar Sesión
             </a>

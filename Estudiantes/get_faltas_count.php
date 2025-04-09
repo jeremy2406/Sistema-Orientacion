@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
         // Ensure we return 0 instead of null
         $counts['leves'] = $counts['leves'] ?? 0;
         $counts['graves'] = $counts['graves'] ?? 0;
-        $counts['muy_graves'] = $counts['muy_graves'] ?? 0;
+        $counts['muy-graves'] = $counts['muy-graves'] ?? 0;
         
         header('Content-Type: application/json');
         echo json_encode($counts);

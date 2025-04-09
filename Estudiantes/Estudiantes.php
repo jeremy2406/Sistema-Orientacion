@@ -213,6 +213,8 @@ document.addEventListener('DOMContentLoaded', function() {
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
     document.getElementById('fecha_falta').value = now.toISOString().slice(0, 16);
 });
+
+
 </script>
 </body>
 
