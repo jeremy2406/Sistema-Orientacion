@@ -214,6 +214,20 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('fecha_falta').value = now.toISOString().slice(0, 16);
 });
 
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+    let searchText = this.value.toLowerCase();
+    let tableRows = document.querySelectorAll('.table__body tbody tr');
+
+    tableRows.forEach(row => {
+        let nombre = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        if(nombre.includes(searchText)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+        });
+    });
+
 
 </script>
 </body>
