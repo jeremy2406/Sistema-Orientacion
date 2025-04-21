@@ -68,7 +68,7 @@
 
 <div id="studentModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close">×</span>
         <div class="student-info">
             <h2 id="modalStudentName"></h2>
         </div>
@@ -87,7 +87,7 @@
 
 <div id="faltaModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close">×</span>
         <div class="student-info">
             <h2 id="faltaModalStudentName"></h2>
         </div>
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('fecha_falta').value = now.toISOString().slice(0, 16);
 });
 
-    document.getElementById('searchInput').addEventListener('keyup', function() {
+document.getElementById('searchInput').addEventListener('keyup', function() {
     let searchText = this.value.toLowerCase();
     let tableRows = document.querySelectorAll('.table__body tbody tr');
 
@@ -225,10 +225,8 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             row.style.display = 'none';
         }
-        });
     });
-
-
+});
 </script>
 </body>
 
