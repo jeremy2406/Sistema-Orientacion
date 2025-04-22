@@ -14,9 +14,8 @@
     <div id='calendar'></div>
 </div>
 
-
+<script src='../Js/calendar.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
 
-<script src='../Js/Calendar.js'></script>
 
 <?php include '../Componentes/footer.php'; ?>
