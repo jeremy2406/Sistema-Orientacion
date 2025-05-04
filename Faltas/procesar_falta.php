@@ -1,6 +1,8 @@
 <?php
 session_start();
 include '../Componentes/conexion.php';
+define('ROOT_PATH', realpath(__DIR__ . '/../../'));
+include_once ROOT_PATH . '/Componentes/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tipo_falta = $_POST['tipo_falta'];
@@ -39,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Determinar nuevo status
             $nuevoStatus = match(true) {
-                $puntosTotales >= 10 => 'MUY GRAVE',
-                $puntosTotales >= 5 => 'GRAVE',
+                $puntosTotales >= 5 => 'MUY GRAVE',
+                $puntosTotales >= 3 => 'GRAVE',
                 default => 'CORRECTO'
             };
 
@@ -67,7 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     
-    header('Location: ../Estudiantes/Estudiantes.php');
+    $redirect_to = $_SERVER['HTTP_REFERER'] ?? BASE_URL;
+    header('Location: ' . $redirect_to);
     exit();
 }
 ?>

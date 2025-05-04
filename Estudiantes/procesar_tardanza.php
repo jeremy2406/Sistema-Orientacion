@@ -1,6 +1,8 @@
 <?php
 session_start();
 include '../Componentes/conexion.php';
+define('ROOT_PATH', realpath(__DIR__ . '/../../'));
+include_once ROOT_PATH . '/Componentes/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $justificacion = $_POST['justificacion'];
@@ -42,7 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     
-    header('Location: ../Estudiantes/Estudiantes.php');
+    $redirect_to = $_SERVER['HTTP_REFERER'] ?? BASE_URL;
+    header('Location: ' . $redirect_to);
     exit();
 }
 ?>

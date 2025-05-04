@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Faltas</title>
     <link rel="stylesheet" href="../Css/Faltas.css">
+    <link rel="stylesheet" href="../Css/Estilos.css">
 </head>
 <body>
     <div class="body">

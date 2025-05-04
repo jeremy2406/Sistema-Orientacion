@@ -1,6 +1,8 @@
-<?php include '../Componentes/header.php'; ?>
-<?php include '../Componentes/Nav.php'; ?>
-<?php include '../Componentes/conexion.php'; ?>
+<?php include '../../Componentes/header.php'; ?>
+<?php include '../../Componentes/Nav.php'; ?>
+<?php include '../../Componentes/conexion.php'; ?>
+<?php define('ROOT_PATH', realpath(__DIR__ . '/../../'));
+include_once ROOT_PATH . '/Componentes/config.php';?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,15 +10,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudiantes</title>
-
-    <link rel="stylesheet" href="../Css/Estudiantes.css">
+    <link rel="stylesheet" href=" ../Css/Estilos.css">
+    <link rel="stylesheet" href="../../Css/Estudiantes.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="body">
         <main class="table">
             <section class="table__header">
-                <h1>Estudiantes</h1>
+                <h1>6to DAAI - Jose Maria Mancebo</h1>
                 <div class="search-box">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Buscar por nombre..." id="searchInput">
@@ -39,7 +41,14 @@
                         $pdo = conectarDB();
                         if ($pdo) {
                             try {
-                                $stmt = $pdo->query('SELECT "Matricula", "Nombre", "Apellido", "Grado", "Seccion/Taller", "Status" FROM "Estudiante"');
+                                $grado = "4to";
+                                $seccion = "MEC";
+
+                                $stmt = $pdo->prepare('SELECT "Matricula", "Nombre", "Apellido", "Grado", "Seccion/Taller", "Status" FROM "Estudiante" WHERE "Grado" = :grado AND "Seccion/Taller" = :seccion');
+                                $stmt->bindParam(':grado', $grado, PDO::PARAM_STR);
+                                $stmt->bindParam(':seccion', $seccion, PDO::PARAM_STR);
+                                $stmt->execute();
+
                                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                     $statusClass = str_replace(' ', '-', strtolower($row['Status']));  
                                     echo "<tr class='student-row' 
@@ -72,8 +81,17 @@
         <div class="student-info">
             <h2 id="modalStudentName"></h2>
         </div>
-        <form id="tardanzaForm" action="./procesar_tardanza.php" method="POST">
+        <form id="tardanzaForm" action="<?= BASE_URL ?>/Estudiantes/procesar_tardanza.php" method="POST">
             <h3>Registrar Tardanza</h3>
+            <div class="form-group">
+                <label for="tipo_falta">Tipo de Tardanza:</label>
+                <select id="tipo_falta" name="tipo_falta" required>
+                    <option value="">Seleccione el tipo de tardanza</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Salud">Salud</option>
+                    <option value="Se_quedo_Dormido">Se quedo Dormido</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="justificacion">Justificación:</label>
                 <textarea id="justificacion" name="justificacion" required></textarea>
@@ -105,7 +123,7 @@
                 <span>0</span>
             </div>
         </div>
-        <form id="faltaModalForm" action="../Faltas/procesar_falta.php" method="POST">
+        <form id="faltaModalForm" action="<?= BASE_URL ?>/Faltas/procesar_falta.php" method="POST">
             <h3>Registrar Falta</h3>
             <div class="form-group">
                 <label for="fecha_falta">Fecha:</label>
@@ -143,6 +161,18 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('fecha_falta').value = now.toISOString().slice(0, 16);
     });
 
+    // Autocompletar justificación basado en el tipo de tardanza seleccionado
+    document.getElementById('tipo_falta').addEventListener('change', function() {
+        const justificacionField = document.getElementById('justificacion');
+        const selectedOption = this.options[this.selectedIndex];
+        
+        if (selectedOption.value !== "") {
+            justificacionField.value = selectedOption.text;
+        } else {
+            justificacionField.value = '';
+        }
+    });
+
     // Show SweetAlert if there's a message in session
     <?php if (isset($_SESSION['swal_message'])): ?>
     Swal.fire({
@@ -177,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const studentName = row.getAttribute('data-student');
             
             try {
-                const response = await fetch(`get_faltas_count.php?id=${studentId}`);
+                const response = await fetch(`../get_faltas_count.php?id=${studentId}`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const counts = await response.json();
                 
@@ -220,7 +250,11 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
 
     tableRows.forEach(row => {
         let nombre = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        let apellido = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+
         if(nombre.includes(searchText)) {
+            row.style.display = '';
+        } else if (apellido.includes(searchText)) {
             row.style.display = '';
         } else {
             row.style.display = 'none';
@@ -230,5 +264,5 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
 </script>
 </body>
 
-<?php include '../Componentes/footer.php'; ?>
+<?php include '../../Componentes/footer.php'; ?>
 </html>

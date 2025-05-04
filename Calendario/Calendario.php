@@ -3,6 +3,7 @@
 
 
 <link rel="stylesheet" href="../Css/Calendario.css">
+<link rel="stylesheet" href="../Css/Estilos.css">
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
