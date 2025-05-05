@@ -81,7 +81,7 @@ include_once ROOT_PATH . '/Componentes/config.php';?>
         <div class="student-info">
             <h2 id="modalStudentName"></h2>
         </div>
-        <form id="tardanzaForm" action="<?= BASE_URL ?>/Estudiantes/procesar_tardanza.php" method="POST">
+        <form id="tardanzaForm" action="<?= BASE_URL ?>Estudiantes/procesar_tardanza.php" method="POST">
             <h3>Registrar Tardanza</h3>
             <div class="form-group">
                 <label for="tipo_falta">Tipo de Tardanza:</label>
