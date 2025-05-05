@@ -123,7 +123,7 @@ include_once ROOT_PATH . '/Componentes/config.php';?>
                 <span>0</span>
             </div>
         </div>
-        <form id="faltaModalForm" action="<?= BASE_URL ?>/Faltas/procesar_falta.php" method="POST">
+        <form id="faltaModalForm" action="<?= BASE_URL ?>Faltas/procesar_falta.php" method="POST">
             <h3>Registrar Falta</h3>
             <div class="form-group">
                 <label for="fecha_falta">Fecha:</label>
