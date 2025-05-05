@@ -1,18 +1,21 @@
 <?php
+ob_start(); // Inicia el buffer de salida para evitar errores de headers
+
 session_start();
-include '../Componentes/conexion.php';
-define('ROOT_PATH', realpath(__DIR__ . '/../../'));
-include_once ROOT_PATH . '/Componentes/config.php';
+
+// Conexión y configuración
+include_once __DIR__ . '/../Componentes/conexion.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Componentes/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $tipo_falta = $_POST['tipo_falta'];
-    $justificacion = $_POST['justificacion'];
-    $id_estudiante = $_POST['matricula_estudiantes'];
-    
+    $tipo_falta = $_POST['tipo_falta'] ?? '';
+    $justificacion = $_POST['justificacion'] ?? '';
+    $id_estudiante = $_POST['matricula_estudiantes'] ?? '';
+
     date_default_timezone_set('America/Santo_Domingo');
     $fecha = date('Y-m-d H:i:s');
 
-    // Puntos según tipo de falta
+    // Puntos asignados según tipo de falta
     $puntos = match($tipo_falta) {
         'leve' => 1,
         'grave' => 3,
@@ -26,15 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Iniciar transacción
             $pdo->beginTransaction();
 
-            // Insertar la falta
+            // Insertar falta
             $stmt = $pdo->prepare('INSERT INTO "Faltas" ("matricula_estudiantes", "tipo_falta", "fecha", "justificacion") VALUES (?, ?, ?, ?)');
             $stmt->execute([$id_estudiante, $tipo_falta, $fecha, $justificacion]);
 
-            // Actualizar puntos del estudiante
+            // Sumar puntos
             $stmt = $pdo->prepare('UPDATE "Estudiante" SET "puntos_faltas" = COALESCE("puntos_faltas", 0) + ? WHERE "Matricula" = ?');
             $stmt->execute([$puntos, $id_estudiante]);
 
-            // Obtener puntos totales
+            // Obtener nuevos puntos
             $stmt = $pdo->prepare('SELECT "puntos_faltas" FROM "Estudiante" WHERE "Matricula" = ?');
             $stmt->execute([$id_estudiante]);
             $puntosTotales = $stmt->fetchColumn();
@@ -50,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare('UPDATE "Estudiante" SET "Status" = ? WHERE "Matricula" = ?');
             $stmt->execute([$nuevoStatus, $id_estudiante]);
 
-            // Confirmar transacción
+            // Confirmar
             $pdo->commit();
 
             $_SESSION['swal_message'] = [
@@ -59,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'icon' => 'success'
             ];
         } catch (PDOException $e) {
-            // Revertir transacción en caso de error
             $pdo->rollBack();
             $_SESSION['swal_message'] = [
                 'title' => 'Error',
@@ -68,9 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
         }
     }
-    
+
+    // Redirigir a la página anterior o a BASE_URL
     $redirect_to = $_SERVER['HTTP_REFERER'] ?? BASE_URL;
     header('Location: ' . $redirect_to);
     exit();
 }
+
+ob_end_flush(); // Finaliza el buffer de salida
 ?>

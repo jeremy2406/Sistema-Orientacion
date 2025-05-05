@@ -104,12 +104,14 @@
         
         .btn-submit {
             background-color: #0D3757;
+            width: 100%;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 16px;
         }
     </style>
 </head>
