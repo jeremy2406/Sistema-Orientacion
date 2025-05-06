@@ -1,5 +1,13 @@
-<?php
-session_start();
+<?php 
+if (session_status() === PHP_SESSION_NONE) { 
+    session_set_cookie_params([ 
+        'httponly' => true, 
+        'secure' => true,  
+        'samesite' => 'Strict' 
+    ]); 
+    session_start(); 
+}
+ 
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -8,8 +16,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Orientación</title>
     <link rel="shortcut icon" href="Imagenes/Logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="../Css/Estilos.css">
-    <link rel="stylesheet" href="../Css/footer.css">
+    <link rel="stylesheet" href="../../Css/Estilos.css">
+    <link rel="stylesheet" href="../../Css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Madimi+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
@@ -28,3 +36,5 @@ session_start();
         </div>
     </div>
 </header>
+</body>
+
