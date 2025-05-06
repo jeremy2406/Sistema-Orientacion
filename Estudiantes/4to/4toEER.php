@@ -42,7 +42,7 @@ include_once ROOT_PATH . '/Componentes/config.php';?>
                         if ($pdo) {
                             try {
                                 $grado = "4to";
-                                $seccion = "EER";
+                                $seccion = "EEM";
 
                                 $stmt = $pdo->prepare('SELECT "Matricula", "Nombre", "Apellido", "Grado", "Seccion/Taller", "Status" FROM "Estudiante" WHERE "Grado" = :grado AND "Seccion/Taller" = :seccion');
                                 $stmt->bindParam(':grado', $grado, PDO::PARAM_STR);
