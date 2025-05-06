@@ -1,11 +1,34 @@
 <?php include '../Componentes/header.php'; ?>
 <?php include '../Componentes/Nav.php'; ?>
+<?php include '../Componentes/conexion.php'; ?>
+
+<?php
+$pdo = conectarDB();
+
+$totalEstudiantes = 0;
+$totalFaltas = 0;
+$totalExcusas = 0;
+$totalTardanzas = 0;
+$totalCalendario = 0;
+
+if ($pdo) {
+    try {
+        $totalEstudiantes = $pdo->query('SELECT COUNT(*) FROM "Estudiante"');
+        $totalFaltas = $pdo->query('SELECT COUNT(*) FROM "Falta"');
+        $totalExcusas = $pdo->query('SELECT COUNT(*) FROM "Excusa"');
+        $totalTardanzas = $pdo->query('SELECT COUNT(*) FROM "Tardanza"');
+        $totalCalendario = $pdo->query('SELECT COUNT(*) FROM "Calendario"');
+    } catch (PDOException $e) {
+        echo 'Error al obtener los totales: ' . $e->getMessage();
+    }
+}
+?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
     <link rel="stylesheet" href="../Css/Estilos.css">
     <link rel="stylesheet" href="../Css/footer.css">
 </head>
@@ -16,38 +39,30 @@
         <div class="card users">
             <i class="fas fa-users"></i> 
             <span>Estudiantes</span>
-            <span id="total-estudiantes">...</span>
+            <span><?= $totalEstudiantes ?></span>
         </div>
         <div class="card books">
-            <i class="fas fa-book"></i>
+            <i class="fas fa-cogs"></i>
             <span>Faltas</span>
-            <span>4</span>
+            <span><?= $totalFaltas ?></span>
         </div>
         <div class="card authors">
             <i class="fas fa-user-tie"></i>
             <span>Excusas</span>
-            <span>3</span>
+            <span><?= $totalExcusas ?></span>
         </div>
-        <div class="card editorial">
-            <i class="fas fa-tag"></i>
-            <span>Reportes</span>
-            <span>1</span>
-        </div>
+        
         <div class="card students">
             <i class="fas fa-graduation-cap"></i>
             <span>Tardanzas</span>
-            <span>2</span>
+            <span><?= $totalTardanzas ?></span>
         </div>
         <div class="card loans">
-            <i class="fas fa-hourglass-half"></i>
+            <i class="fa-solid fa-calendar-days"></i>
             <span>Calendario</span>
-            <span>0</span>
+            <span><?= $totalCalendario ?></span>
         </div>
-        <div class="card subjects">
-            <i class="fas fa-list"></i>
-            <span>Registros</span>
-            <span>4</span>
-        </div>
+       
         <div class="card settings">
             <i class="fas fa-cog"></i>
             <span>Configuración</span>
