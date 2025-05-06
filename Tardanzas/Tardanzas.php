@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tardanzas</title>
     <link rel="stylesheet" href="../Css/Tardanzas.css">
-    <link rel="stylesheet" href="../Css/Estilos.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/Css/Estilos.css">
 </head>
 <body>
     <div class="body">

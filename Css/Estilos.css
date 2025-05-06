@@ -113,6 +113,7 @@ header {
     border-radius: 12px;
     white-space: nowrap;
     position: relative;
+    width: 100%;
 }
 
 .sidebar ul li a:hover {
