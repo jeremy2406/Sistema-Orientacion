@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href=" ../Css/Estilos.css">
-    <link rel="stylesheet" href="../../Css/Estudiantes.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/Css/Estudiantes.css">
 </head>
 <body>
 <div class="main-content">
