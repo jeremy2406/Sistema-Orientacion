@@ -13,11 +13,18 @@ $totalCalendario = 0;
 
 if ($pdo) {
     try {
-        $totalEstudiantes = $pdo->query('SELECT COUNT(*) FROM "Estudiante"');
-        $totalFaltas = $pdo->query('SELECT COUNT(*) FROM "Falta"');
-        $totalExcusas = $pdo->query('SELECT COUNT(*) FROM "Excusa"');
-        $totalTardanzas = $pdo->query('SELECT COUNT(*) FROM "Tardanza"');
-        $totalCalendario = $pdo->query('SELECT COUNT(*) FROM "Calendario"');
+        // Modificar estas líneas para obtener el valor escalar
+        $stmt = $pdo->query('SELECT COUNT(*) FROM "Estudiante"');
+        $totalEstudiantes = $stmt->fetchColumn();
+        
+        $stmt = $pdo->query('SELECT COUNT(*) FROM "Faltas"');
+        $totalFaltas = $stmt->fetchColumn();
+        
+        $stmt = $pdo->query('SELECT COUNT(*) FROM "Excusas"');
+        $totalExcusas = $stmt->fetchColumn();
+        
+        $stmt = $pdo->query('SELECT COUNT(*) FROM "Tardanzas"');
+        $totalTardanzas = $stmt->fetchColumn();
     } catch (PDOException $e) {
         echo 'Error al obtener los totales: ' . $e->getMessage();
     }
@@ -56,11 +63,6 @@ if ($pdo) {
             <i class="fas fa-graduation-cap"></i>
             <span>Tardanzas</span>
             <span><?= $totalTardanzas ?></span>
-        </div>
-        <div class="card loans">
-            <i class="fa-solid fa-calendar-days"></i>
-            <span>Calendario</span>
-            <span><?= $totalCalendario ?></span>
         </div>
        
         <div class="card settings">
