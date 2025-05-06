@@ -637,34 +637,34 @@ td img {
 }
 
 /* Colores para 3ro */
-.dashboard a[href*="3roA"] .card { border-left-color: #FF5733; }
-.dashboard a[href*="3roB"] .card { border-left-color: #33FF57; }
-.dashboard a[href*="3roC"] .card { border-left-color: #3357FF; }
-.dashboard a[href*="3roD"] .card { border-left-color: #FF33F5; }
-.dashboard a[href*="3roE"] .card { border-left-color: #F5FF33; }
-.dashboard a[href*="3roF"] .card { border-left-color: #33FFF5; }
-.dashboard a[href*="3roG"] .card { border-left-color: #FF8033; }
+.dashboard [span*="3roA"] .card { border-left-color: #FF5733; }
+.dashboard [href*="3roB"] .card { border-left-color: #33FF57; }
+.dashboard [href*="3roC"] .card { border-left-color: #3357FF; }
+.dashboard [href*="3roD"] .card { border-left-color: #FF33F5; }
+.dashboard [href*="3roE"] .card { border-left-color: #F5FF33; }
+.dashboard [href*="3roF"] .card { border-left-color: #33FFF5; }
+.dashboard [href*="3roG"] .card { border-left-color: #FF8033; }
 
 /* Colores para 4to */
-.dashboard a[href*="4toDAAI"] .card { border-left-color: #4CAF50; }
-.dashboard a[href*="4toEE"] .card { border-left-color: #2196F3; }
-.dashboard a[href*="4toEER"] .card { border-left-color: #9C27B0; }
-.dashboard a[href*="4toER"] .card { border-left-color: #FF9800; }
-.dashboard a[href*="4toGAT"] .card { border-left-color: #E91E63; }
-.dashboard a[href*="4toLT"] .card { border-left-color: #00BCD4; }
-.dashboard a[href*="4toMEC"] .card { border-left-color: #8BC34A; }
-.dashboard a[href*="4toMG"] .card { border-left-color: #FFC107; }
-.dashboard a[href*="4toRAA"] .card { border-left-color: #795548; }
+.dashboard [href*="4toDAAI"] .card { border-left-color: #4CAF50; }
+.dashboard [href*="4toEE"] .card { border-left-color: #2196F3; }
+.dashboard [href*="4toEER"] .card { border-left-color: #9C27B0; }
+.dashboard [href*="4toER"] .card { border-left-color: #FF9800; }
+.dashboard [href*="4toGAT"] .card { border-left-color: #E91E63; }
+.dashboard [href*="4toLT"] .card { border-left-color: #00BCD4; }
+.dashboard [href*="4toMEC"] .card { border-left-color: #8BC34A; }
+.dashboard [href*="4toMG"] .card { border-left-color: #FFC107; }
+.dashboard [href*="4toRAA"] .card { border-left-color: #795548; }
 
 /* Colores para 5to */
-.dashboard a[href*="5toDAAI"] .card { border-left-color: #673AB7; }
-.dashboard a[href*="5toEE"] .card { border-left-color: #FF5722; }
-.dashboard a[href*="5toER"] .card { border-left-color: #009688; }
-.dashboard a[href*="5toGAT"] .card { border-left-color: #CDDC39; }
-.dashboard a[href*="5toLT"] .card { border-left-color: #3F51B5; }
-.dashboard a[href*="5toMEC"] .card { border-left-color: #F44336; }
-.dashboard a[href*="5toMG"] .card { border-left-color: #607D8B; }
-.dashboard a[href*="5toRAA"] .card { border-left-color: #03A9F4; }
+.dashboard [href*="5toDAAI"] .card { border-left-color: #673AB7; }
+.dashboard [href*="5toEE"] .card { border-left-color: #FF5722; }
+.dashboard [href*="5toER"] .card { border-left-color: #009688; }
+.dashboard [href*="5toGAT"] .card { border-left-color: #CDDC39; }
+.dashboard [href*="5toLT"] .card { border-left-color: #3F51B5; }
+.dashboard [href*="5toMEC"] .card { border-left-color: #F44336; }
+.dashboard [href*="5toMG"] .card { border-left-color: #607D8B; }
+.dashboard [href*="5toRAA"] .card { border-left-color: #03A9F4; }
 
 /* Colores para 6to */
 .dashboard [href*="6toDAAI"] .card { border-left-color: #9E9D24; }
