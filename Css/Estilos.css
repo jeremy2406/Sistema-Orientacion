@@ -168,53 +168,105 @@ header {
     pointer-events: auto;
 }
 
-/* SUBMENU */
-.sidebar ul .submenu_toggle {
-    flex-direction: column;
-}
-
-.sidebar ul .submenu {
+/* Submenu */
+/* Estilos para el menú desplegable */
+.submenu {
     display: none;
-    flex-direction: column;
-    margin-left: 0;
-    margin-top: 0;
-    padding-left: 20px;
+    padding: 10px;
+    transition: all 0.3s ease;
+    background-color: #0D3757;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    z-index: 1000;
+    width: 80px;
+    right: -90px;
+    top: 0; /* Cambiado de -5px a 0 para posicionar en la parte superior */
 }
 
-.sidebar.active ul .submenu {
-    margin-left: 20px;
+.submenu.show {
+    display: block;
 }
 
-
-.sidebar.active ul .submenu_toggle.open .submenu {
-    display: flex;
+.submenu li {
+    padding: 0;
+    margin: 8px 0;
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
-.sidebar ul .submenu li {
-    height: auto;
-    margin: 0;
-}
-
-.sidebar ul .submenu li a {
-    padding-left: 10px;
-    font-size: 14px;
+.submenu li a {
+    display: block;
+    text-align: center;
+    padding: 12px 8px;
     color: #ffffff;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-weight: bold;
+    font-size: 16px;
 }
 
-.sidebar ul .submenu_toggle .arrow {
-    margin-left: auto;
+.submenu li a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #4ecdc4;
+}
+
+.submenu li:last-child a {
+    margin-bottom: 0;
+}
+
+.arrow {
     transition: transform 0.3s ease;
-    display: none;
+    position: absolute;
+    right: 15px;
+    opacity: 0;
 }
 
-.sidebar.active ul .submenu_toggle .arrow {
-    display: inline-block;
+.submenu_toggle:hover .arrow,
+.submenu_toggle.active .arrow {
+    opacity: 1;
 }
 
-.sidebar ul .submenu_toggle.open .arrow {
+.arrow.rotate {
     transform: rotate(180deg);
 }
 
+.submenu_toggle.active > a {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+.submenu_toggle {
+    position: relative;
+}
+
+/* Overlay para oscurecer el resto del menú */
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 900;
+}
+
+/* Estilo para opacar los otros elementos del menú */
+.nav-item.fade {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Ajuste para cuando la barra lateral está colapsada */
+.sidebar:not(.active) .submenu {
+    right: -90px;
+}
+
+/* Ajuste para cuando la barra lateral está expandida */
+.sidebar.active .submenu {
+    right: -90px;
+}
 
 /* CONTENIDO PRINCIPAL */
 .main-content {
