@@ -2,7 +2,7 @@
 <?php include '../Componentes/Nav.php'; ?>
 
 
-<link rel="stylesheet" href="../Css/Calendario.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/Css/Calendario.css">
 <link rel="stylesheet" href="<?= BASE_URL ?>/Css/Estilos.css">
 
 

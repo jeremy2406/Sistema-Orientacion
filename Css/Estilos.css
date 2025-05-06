@@ -277,12 +277,6 @@ header {
     width: calc(100% - 78px);
 }
 
-a {
-    list-style: none;
-    text-decoration: none;
-    color: #fff;
-    
-}
 .sidebar.active ~ .main-content {
     margin-left: 240px;
     width: calc(100% - 240px);
