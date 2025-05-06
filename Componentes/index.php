@@ -39,7 +39,7 @@ if ($pdo) {
         <div class="card users">
             <i class="fas fa-users"></i> 
             <span>Estudiantes</span>
-            <span><?= $totalEstudiantes ?></span>
+            <span><?= $totalEstudiantes?></span>
         </div>
         <div class="card books">
             <i class="fas fa-cogs"></i>

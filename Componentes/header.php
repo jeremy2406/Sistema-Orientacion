@@ -6,7 +6,8 @@ if (session_status() === PHP_SESSION_NONE) {
         'samesite' => 'Strict' 
     ]); 
     session_start(); 
-} 
+}
+ 
 ?>
 <!DOCTYPE html>
 <html lang="es">
