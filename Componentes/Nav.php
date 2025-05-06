@@ -35,8 +35,8 @@
         </li>
         <li class="nav-item"><a href="<?= BASE_URL ?>Excusa/Excusas.php" data-tooltip="Excusas"><i class="fas fa-user-graduate"></i><span class="link_name">Excusas</span></a></li>
         <li class="nav-item"><a href="<?= BASE_URL ?>Calendario/Calendario.php" data-tooltip="Calendario"><i class="fa-solid fa-calendar-days"></i><span class="link_name">Calendario</span></a></li>
-        <li class="nav-item"><a href="<?= BASE_URL ?>Tardanzas/Tardanzas.php" data-tooltip="Tardanzas"><i class="fas fa-book"></i><span class="link_name">Tardanzas</span></a></li>
-        <li class="nav-item"><a href="<?= BASE_URL ?>Faltas/Faltas.php" data-tooltip="Faltas"><i class="fas fa-cogs"></i><span class="link_name">Faltas</span></a></li>
+        <li class="nav-item"><a href="<?= BASE_URL ?>Tardanzas/Tardanzas.php" data-tooltip="Tardanzas"><i class="fa-solid fa-clock"></i><span class="link_name">Tardanzas</span></a></li>
+        <li class="nav-item"><a href="<?= BASE_URL ?>Faltas/Faltas.php" data-tooltip="Faltas"><i class="fa-solid fa-user-xmark"></i><span class="link_name">Faltas</span></a></li>
         <li class="nav-item"><a href="#" data-tooltip="Manual de Convivencia"><i class="fa-solid fa-book"></i><span class="link_name">M. de Convivencia</span></a></li>
     </ul>
 </aside>
