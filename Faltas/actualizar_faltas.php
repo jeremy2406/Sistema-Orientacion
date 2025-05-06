@@ -17,7 +17,10 @@ if (isset($_GET['fecha'])) {
             ');
             $stmt->execute([$fecha]);
 
+            $count = 0;
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $count++;
+
                 $tipo_falta_class = strtolower(str_replace(' ', '-', $row['tipo_falta']));
                 echo "<tr>";
                 echo "<td>{$row['Nombre']} {$row['Apellido']}</td>";
@@ -28,9 +31,19 @@ if (isset($_GET['fecha'])) {
                 echo "<td>{$row['justificacion']}</td>";
                 echo "</tr>";
             }
+            if ($count === 0) {
+                echo "<tr><td colspan='5' class='text-center'>No hay excusas registradas para esta fecha</td></tr>";
+            }
         } catch (PDOException $e) {
             echo "<tr><td colspan='6'>Error: " . $e->getMessage() . "</td></tr>";
         }
     }
 }
 ?>
+
+<style>
+    .text-center {
+    padding-left: 250px;
+    text-align: center;
+}
+</style>

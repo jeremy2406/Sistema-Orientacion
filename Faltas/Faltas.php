@@ -56,7 +56,9 @@
                                 ');
                                 $stmt->execute([$fecha_actual]);
 
+                                $count = 0;
                                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                    $count++;
                                     $tipo_falta_class = strtolower(str_replace(' ', '-', $row['tipo_falta']));
                                     echo "<tr>";
                                     echo "<td>{$row['Nombre']} {$row['Apellido']}</td>";
@@ -67,6 +69,11 @@
                                     echo "<td>{$row['justificacion']}</td>";
                                     echo "</tr>";
                                 }
+
+                                if ($count === 0) {
+                                    echo "<tr><td colspan='6' class='text-center'>No hay faltas registradas para esta fecha</td></tr>";
+                                }
+                                
                             } catch (PDOException $e) {
                                 echo "<tr><td colspan='6'>Error: " . $e->getMessage() . "</td></tr>";
                             }
@@ -76,33 +83,6 @@
                 </table>
             </section>
         </main>
-    </div>
-
-    <div id="studentModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="student-info">
-                <img id="modalStudentImage" src="" alt="Student">
-                <h2 id="modalStudentName"></h2>
-            </div>
-            <form id="faltaForm" action="./procesar_falta.php" method="POST">
-                <h3>Registrar Falta</h3>
-                <div class="form-group">
-                    <label for="tipo_falta">Tipo de Falta:</label>
-                    <select id="tipo_falta" name="tipo_falta" required>
-                        <option value="leve">Leve</option>
-                        <option value="grave">Grave</option>
-                        <option value="muy-grave">Muy Grave</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="justificacion">Justificación:</label>
-                    <textarea id="justificacion" name="justificacion" required></textarea>
-                </div>
-                <input type="hidden" id="matricula_estudiantes" name="matricula_estudiantes" value="">
-                <button type="submit" class="submit-btn">Registrar Falta</button>
-            </form>
-        </div>
     </div>
 
     <script>

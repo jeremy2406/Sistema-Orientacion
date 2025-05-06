@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="../Css/Tardanzas.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/Css/Estilos.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Agregar jQuery y jQuery UI para autocompletado -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <style>
         .table__header {
             display: flex;
@@ -113,6 +117,29 @@
             font-weight: bold;
             font-size: 16px;
         }
+        
+        /* Estilos para el autocompletado */
+        .ui-autocomplete {
+            max-height: 200px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 9999 !important;
+        }
+        
+        .ui-menu-item {
+            padding: 5px;
+            cursor: pointer;
+        }
+        
+        .ui-menu-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .ui-state-active, .ui-widget-content .ui-state-active {
+            background-color: #0D3757 !important;
+            color: white !important;
+            border: 1px solid #0D3757 !important;
+        }
     </style>
 </head>
 <body>
@@ -184,15 +211,7 @@
             <span class="close">&times;</span>
             <h2>Agregar Excusa</h2>
             <form id="excusaForm" method="POST" action="procesar_excusa.php">
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="apellido">Apellido:</label>
-                    <input type="text" id="apellido" name="apellido" required>
-                </div>
-                <div class="form-group">
+            <div class="form-group">
                     <label for="grado">Grado:</label>
                     <select id="grado" name="grado" required>
                         <option value="">Seleccionar Grado</option>
@@ -223,6 +242,14 @@
                         <option value="MG">MG</option>
                         <option value="RAA">RAA</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" name="apellido" required>
                 </div>
                 <div class="form-group">
                     <label for="fecha_excusa">Fecha:</label>
@@ -265,17 +292,25 @@
     const openModalBtn = document.getElementById("openModalBtn");
     const closeBtn = document.getElementsByClassName("close")[0];
 
+    // Función para limpiar el formulario
+    function limpiarFormulario() {
+        document.getElementById('excusaForm').reset();
+        estudianteSeleccionado = null;
+    }
+
     openModalBtn.onclick = function() {
         modal.style.display = "block";
     }
 
     closeBtn.onclick = function() {
         modal.style.display = "none";
+        limpiarFormulario();
     }
 
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
+            limpiarFormulario();
         }
     }
 
@@ -354,9 +389,69 @@
             });
         });
     });
+
+
+    // Funcionalidad de autocompletado para el nombre basado en grado y sección/taller
+    let estudianteSeleccionado = null;
+    
+    function actualizarAutocompletado() {
+        const grado = $('#grado').val();
+        const taller = $('#taller').val();
+        
+        if (grado && taller) {
+            $('#nombre').autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: 'buscar_estudiantes.php',
+                        dataType: 'json',
+                        data: {
+                            term: request.term,
+                            grado: grado,
+                            taller: taller
+                        },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function(event, ui) {
+                    estudianteSeleccionado = ui.item;
+                    $('#nombre').val(ui.item.nombre);
+                    $('#apellido').val(ui.item.apellido);
+                    return false;
+                }
+            }).autocomplete("instance")._renderItem = function(ul, item) {
+                return $("<li>")
+                    .append("<div>" + item.nombre + " " + item.apellido + "</div>")
+                    .appendTo(ul);
+            };
+        } else {
+            // Si no se han seleccionado ambos campos, desactivar autocompletado
+            if ($('#nombre').autocomplete("instance")) {
+                $('#nombre').autocomplete("destroy");
+            }
+        }
+    }
+    
+    // Activar autocompletado cuando cambien los selectores de grado y taller
+    $('#grado, #taller').on('change', function() {
+        actualizarAutocompletado();
+    });
+    
+    // Limpiar campos de nombre y apellido cuando se cambie el grado o taller
+    $('#grado, #taller').on('change', function() {
+        $('#nombre').val('');
+        $('#apellido').val('');
+        estudianteSeleccionado = null;
+    });
+
+    
     </script>
     <?php
     include '../Componentes/footer.php';?>
 </body>
 </html>
+
+</script>
 
