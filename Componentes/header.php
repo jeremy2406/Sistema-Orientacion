@@ -1,5 +1,12 @@
-<?php
-session_start();
+<?php 
+if (session_status() === PHP_SESSION_NONE) { 
+    session_set_cookie_params([ 
+        'httponly' => true, 
+        'secure' => true,  
+        'samesite' => 'Strict' 
+    ]); 
+    session_start(); 
+} 
 ?>
 <!DOCTYPE html>
 <html lang="es">
