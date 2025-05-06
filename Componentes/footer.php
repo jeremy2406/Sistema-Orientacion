@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="grupo-2">
-        <small>© 2025 <b>EJM</b> - Todos los Derechos Reservados. <a href=""><b>Politica y
+        <small>© 2025 <a href="<?= BASE_URL ?>Componentes/Creadores.php"><b>EJM</b></a> - Todos los Derechos Reservados. <a href=""><b>Politica y
                     Privacidad</b></a></small>
     </div>
 </footer>
