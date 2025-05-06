@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Css/Estilos.css">
-    <link rel="stylesheet" href="../Css/Estudiantes.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>Css/Estilos.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>Css/Estudiantes.css">
 <aside class="sidebar">
     <div class="logo_content">
         <div class="logo">
@@ -26,7 +26,7 @@
                 <i class="fa-solid fa-users"></i>
                 <span class="link_name">Estudiantes</span>
             </a>
-            <div class="submenu">
+            <div class="submenu" style="position: absolute; z-index: 1100; background-color: #0D3757; left: 100%; top: 0; display: none;">
                 <a href="<?= BASE_URL ?>Estudiantes/3ro/3base.php">3ro</a>
                 <a href="<?= BASE_URL ?>Estudiantes/4to/4base.php">4to</a>
                 <a href="<?= BASE_URL ?>Estudiantes/5to/5base.php">5to</a>
@@ -147,85 +147,21 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Obtener el elemento del menú de estudiantes
+    // Manejo del menú desplegable de estudiantes
     const estudiantesMenu = document.getElementById('estudiantes-menu');
-    const overlay = document.getElementById('overlay');
-    const navItems = document.querySelectorAll('.nav-item');
-    let menuOpen = false;
+    const submenu = estudiantesMenu.querySelector('.submenu');
     
-    // Agregar evento de clic al menú de estudiantes
-    estudiantesMenu.addEventListener('click', function(e) {
-        // Prevenir comportamiento predeterminado del enlace
-        if (e.target.tagName === 'A' || e.target.closest('a').getAttribute('href') === '#') {
-            e.preventDefault();
-        }
-        
-        // Obtener el submenú
-        const submenu = this.querySelector('.submenu');
-        
-        // Si el menú ya está abierto, cerrarlo al hacer clic de nuevo
-        if (menuOpen) {
-            submenu.classList.remove('show');
-            this.classList.remove('active');
-            overlay.style.display = 'none';
-            navItems.forEach(item => {
-                item.classList.remove('fade');
-            });
-            const arrow = this.querySelector('.arrow');
-            if (arrow) {
-                arrow.classList.remove('rotate');
-            }
-            menuOpen = false;
-        } else {
-            // Abrir el menú
-            submenu.classList.add('show');
-            this.classList.add('active');
-            overlay.style.display = 'block';
-            navItems.forEach(item => {
-                item.classList.add('fade');
-            });
-            const arrow = this.querySelector('.arrow');
-            if (arrow) {
-                arrow.classList.add('rotate');
-            }
-            menuOpen = true;
-        }
+    estudiantesMenu.addEventListener('mouseenter', function() {
+        submenu.style.display = 'block';
     });
     
-    // Cerrar el submenú al hacer clic en el overlay
-    overlay.addEventListener('click', function() {
-        const submenu = document.querySelector('.submenu');
-        if (submenu.classList.contains('show')) {
-            submenu.classList.remove('show');
-            estudiantesMenu.classList.remove('active');
-            overlay.style.display = 'none';
-            navItems.forEach(item => {
-                item.classList.remove('fade');
-            });
-            const arrow = estudiantesMenu.querySelector('.arrow');
-            if (arrow) {
-                arrow.classList.remove('rotate');
-            }
-            menuOpen = false;
-        }
+    estudiantesMenu.addEventListener('mouseleave', function() {
+        submenu.style.display = 'none';
     });
     
-    // Permitir que los enlaces del submenú funcionen sin cerrar el submenú
-    const submenuLinks = document.querySelectorAll('.submenu a');
-    submenuLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.stopPropagation(); // Evitar que el clic se propague al elemento padre
-            
-            // Prevenir el comportamiento por defecto para evitar problemas con el último elemento
-            if (this.parentElement === this.parentElement.parentElement.lastElementChild) {
-                setTimeout(() => {
-                    window.location.href = this.getAttribute('href');
-                }, 50);
-                e.preventDefault();
-            }
-        });
-    });
+    // Asegurarse de que el submenú esté por encima de otros elementos
+    submenu.style.zIndex = '1100';
 });
 </script>
-
+</html>
 <script src="<?= BASE_URL ?>Js/script.js"></script>
