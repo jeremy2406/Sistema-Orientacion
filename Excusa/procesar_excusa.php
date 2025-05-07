@@ -7,9 +7,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $grado = $_POST['grado'] ?? '';
     $taller = $_POST['taller'] ?? '';
     $fecha = $_POST['fecha_excusa'] ?? '';
+    $tutor = $_POST['tutor'] ?? '';
     $justificacion = $_POST['justificacion'] ?? '';
     
-    if (empty($nombre) || empty($apellido) || empty($grado) || empty($taller) || empty($fecha) || empty($justificacion)) {
+    if (empty($nombre) || empty($apellido) || empty($grado) || empty($taller) || empty($fecha) || empty($tutor) ||empty($justificacion)) {
         echo json_encode(['success' => false, 'message' => 'Todos los campos son obligatorios']);
         exit;
     }
@@ -27,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $matricula = $estudiante['Matricula'];
                 
                 // Insertar la excusa
-                $stmt = $pdo->prepare('INSERT INTO "Excusas" ("Matricula_estudiantes", "Fecha", "Justificacion") VALUES (?, ?, ?)');
-                $result = $stmt->execute([$matricula, $fecha, $justificacion]);
+                $stmt = $pdo->prepare('INSERT INTO "Excusas" ("Matricula_estudiantes", "Fecha", "Justificacion", "Tutor") VALUES (?, ?, ?, ?)');
+                $result = $stmt->execute([$matricula, $fecha, $justificacion, $tutor]);
                 
                 if ($result) {
                     echo json_encode(['success' => true]);

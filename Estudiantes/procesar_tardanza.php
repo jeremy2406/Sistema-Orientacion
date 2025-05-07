@@ -20,6 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pdo = conectarDB();
     if ($pdo) {
         try {
+            // Iniciar transacción
+            $pdo->beginTransaction();
+            
             // Verificar si el estudiante existe
             $checkStmt = $pdo->prepare('SELECT "Matricula" FROM "Estudiante" WHERE "Matricula" = ?');
             $checkStmt->execute([$id_estudiante]);
@@ -30,10 +33,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $result = $stmt->execute([$id_estudiante, $fecha, $justificacion]);
 
                 if ($result) {
+                    // Actualizar el contador de tardanzas del estudiante
+                    // Modificamos esta línea para convertir explícitamente a entero
+                    $updateStmt = $pdo->prepare('UPDATE "Estudiante" SET "Tardanzas" = CAST(COALESCE("Tardanzas", \'0\') AS INTEGER) + 1 WHERE "Matricula" = ?');
+                    $updateStmt->execute([$id_estudiante]);
+                    
+                    // Obtener el número actualizado de tardanzas
+                    $countStmt = $pdo->prepare('SELECT "Tardanzas" FROM "Estudiante" WHERE "Matricula" = ?');
+                    $countStmt->execute([$id_estudiante]);
+                    $tardanzas = $countStmt->fetchColumn();
+                    
+                    // Confirmar la transacción
+                    $pdo->commit();
+                    
+                    // Devolver respuesta con el número de tardanzas actualizado
                     $_SESSION['swal_message'] = [
                         'title' => '¡Éxito!',
                         'text' => 'Tardanza registrada correctamente',
-                        'icon' => 'success'
+                        'icon' => 'success',
+                        'tardanzas' => $tardanzas
                     ];
                 }
             } else {
@@ -44,6 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ];
             }
         } catch (PDOException $e) {
+            // Revertir la transacción en caso de error
+            $pdo->rollBack();
+            
             $_SESSION['swal_message'] = [
                 'title' => 'Error de Base de Datos',
                 'text' => $e->getMessage(),

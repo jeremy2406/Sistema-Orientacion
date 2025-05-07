@@ -1,7 +1,12 @@
 <?php
 include '../Componentes/conexion.php';
 
-$fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
+$busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+
+if (empty($busqueda)) {
+    echo "<tr><td colspan='6' class='text-center'>Por favor ingrese un nombre o apellido para buscar</td></tr>";
+    exit;
+}
 
 $pdo = conectarDB();
 if (!$pdo) {
@@ -10,16 +15,19 @@ if (!$pdo) {
 }
 
 try {
+    // Buscar estudiantes por nombre o apellido
     $stmt = $pdo->prepare('
         SELECT e."Nombre", e."Apellido", e."Seccion/Taller", e."Grado", 
                t."Fecha", t."Justificacion"
         FROM "Tardanzas" t
         JOIN "Estudiante" e ON t."Matricula_estudiantes" = e."Matricula"
-        WHERE DATE(t."Fecha") = ?
+        WHERE LOWER(e."Nombre") LIKE LOWER(?) OR LOWER(e."Apellido") LIKE LOWER(?)
         ORDER BY t."Fecha" DESC
     ');
-    $stmt->execute([$fecha]);
-
+    
+    $parametro = "%{$busqueda}%";
+    $stmt->execute([$parametro, $parametro]);
+    
     $count = 0;
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $count++;
@@ -34,14 +42,9 @@ try {
     }
     
     if ($count === 0) {
-        echo "<tr><td colspan='6' class='text-center'>No hay tardanzas registradas para esta fecha</td></tr>";
+        echo "<tr><td colspan='6' class='text-center'>No se encontraron tardanzas para el estudiante: '{$busqueda}'</td></tr>";
     }
 } catch (PDOException $e) {
     echo "<tr><td colspan='6'>Error: " . $e->getMessage() . "</td></tr>";
 }
 ?>
-<style>
-    .text-center {
-    text-align: center;
-}
-</style>

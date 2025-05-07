@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Excusas</title>
-    <link rel="stylesheet" href="../Css/Tardanzas.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/Css/Tardanzas.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/Css/Estilos.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Agregar jQuery y jQuery UI para autocompletado -->
@@ -160,6 +160,7 @@
                             <th class="text-center">GRADO</th>
                             <th class="text-center">SECCIÓN/TALLER</th>
                             <th class="text-center">FECHA</th>
+                            <th class="text-center">TUTOR</th>
                             <th class="text-center">JUSTIFICACIÓN</th>
                         </tr>
                     </thead>
@@ -171,7 +172,7 @@
                                 $fecha_actual = date('Y-m-d');
                                 $stmt = $pdo->prepare('
                                     SELECT e."Nombre", e."Apellido", e."Seccion/Taller", e."Grado", 
-                                           ex."Fecha", ex."Justificacion"
+                                           ex."Fecha", ex."Tutor", ex."Justificacion"
                                     FROM "Excusas" ex
                                     JOIN "Estudiante" e ON ex."Matricula_estudiantes" = e."Matricula"
                                     WHERE CAST(ex."Fecha" AS DATE) = ?
@@ -187,6 +188,7 @@
                                     echo "<td class='text-center'>{$row['Grado']}</td>";
                                     echo "<td class='text-center'>{$row['Seccion/Taller']}</td>";
                                     echo "<td class='text-center'>" . date('d/m/Y', strtotime($row['Fecha'])) . "</td>";
+                                    echo "<td class='text-center'>{$row['Tutor']}</td>";
                                     echo "<td class='text-center'>{$row['Justificacion']}</td>";
                                     echo "</tr>";
                                 }
@@ -220,7 +222,7 @@
                         <option value="5to">5to</option>
                         <option value="6to">6to</option>
                     </select>
-                </div>
+            </div>
                 <div class="form-group">
                     <label for="taller">Sección/Taller:</label>
                     <select id="taller" name="taller" required>
@@ -251,6 +253,15 @@
                     <label for="apellido">Apellido:</label>
                     <input type="text" id="apellido" name="apellido" required>
                 </div>
+                <div class="form-group">
+                    <label for="tutor">Responsable del Estudiante:</label>
+                    <select id="tutor" name="tutor" required>
+                        <option value="">Seleccionar Responsable</option>
+                        <option value="Padre">Padre</option>
+                        <option value="Madre">Madre</option>
+                        <option value="Tutor">Tutor</option>
+                    </select>
+            </div>
                 <div class="form-group">
                     <label for="fecha_excusa">Fecha:</label>
                     <input type="date" id="fecha_excusa" name="fecha_excusa" value="<?php echo date('Y-m-d'); ?>" required>

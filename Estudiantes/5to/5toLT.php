@@ -18,7 +18,7 @@ include_once ROOT_PATH . '/Componentes/config.php';?>
     <div class="body">
         <main class="table">
             <section class="table__header">
-                <h1>5to LT - Jose Maria Mancebo</h1>
+                <h1>6to DAAI - Jose Maria Mancebo</h1>
                 <div class="search-box">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Buscar por nombre..." id="searchInput">
@@ -44,19 +44,22 @@ include_once ROOT_PATH . '/Componentes/config.php';?>
                                 $grado = "5to";
                                 $seccion = "LT";
 
-                                $stmt = $pdo->prepare('SELECT "Matricula", "Nombre", "Apellido", "Grado", "Seccion/Taller", "Status" FROM "Estudiante" WHERE "Grado" = :grado AND "Seccion/Taller" = :seccion');
+                                $stmt = $pdo->prepare('SELECT "Matricula", "Nombre", "Apellido", "Grado", "Seccion/Taller", "Status", "Tardanzas" FROM "Estudiante" WHERE "Grado" = :grado AND "Seccion/Taller" = :seccion');
                                 $stmt->bindParam(':grado', $grado, PDO::PARAM_STR);
                                 $stmt->bindParam(':seccion', $seccion, PDO::PARAM_STR);
                                 $stmt->execute();
 
                                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                    $statusClass = str_replace(' ', '-', strtolower($row['Status']));  
+                                    $statusClass = str_replace(' ', '-', strtolower($row['Status']));
+                                    $nombreClass = isset($row['Tardanzas']) && $row['Tardanzas'] >= 5 ? 'nombre-exceso' : '';
+                                    
                                     echo "<tr class='student-row' 
                                         data-student='{$row['Nombre']} {$row['Apellido']}' 
-                                        data-id='{$row['Matricula']}'>";  
+                                        data-id='{$row['Matricula']}'
+                                        data-tardanzas='" . (isset($row['Tardanzas']) ? $row['Tardanzas'] : 0) . "'>";  
                                     echo "<td>{$row['Matricula']}</td>";
-                                    echo "<td>{$row['Nombre']}</td>";
-                                    echo "<td>{$row['Apellido']}</td>";
+                                    echo "<td class='{$nombreClass}'>{$row['Nombre']}</td>";
+                                    echo "<td class='{$nombreClass}'>{$row['Apellido']}</td>";
                                     echo "<td>{$row['Grado']}</td>";
                                     echo "<td>{$row['Seccion/Taller']}</td>";
                                     echo "<td class='status-cell'>
@@ -80,6 +83,9 @@ include_once ROOT_PATH . '/Componentes/config.php';?>
         <span class="close">×</span>
         <div class="student-info">
             <h2 id="modalStudentName"></h2>
+            <div class="tardanzas-info">
+                <p>Tardanzas registradas: <span id="tardanzasCount">0</span></p>
+            </div>
         </div>
         <form id="tardanzaForm" action="<?= BASE_URL ?>Estudiantes/procesar_tardanza.php" method="POST">
             <h3>Registrar Tardanza</h3>
@@ -148,6 +154,31 @@ include_once ROOT_PATH . '/Componentes/config.php';?>
     </div>
 </div>
 
+<style>
+.nombre-exceso {
+    color: red;
+    font-weight: bold;
+}
+
+.tardanzas-info {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border-left: 4px solid #0D3757;
+}
+
+.tardanzas-info p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.tardanzas-info span {
+    font-weight: bold;
+    color: #0D3757;
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Add SweetAlert handling for both forms
@@ -191,9 +222,11 @@ document.addEventListener('DOMContentLoaded', function() {
         row.addEventListener('click', function() {
             const studentName = this.getAttribute('data-student');
             const studentId = this.getAttribute('data-id');
+            const tardanzasCount = this.getAttribute('data-tardanzas') || 0;
             
             document.getElementById('modalStudentName').textContent = studentName;
             document.getElementById('estudiante_id').value = studentId;
+            document.getElementById('tardanzasCount').textContent = tardanzasCount;
             document.getElementById('studentModal').style.display = "block";
         });
     });
@@ -260,6 +293,29 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
             row.style.display = 'none';
         }
     });
+});
+
+// Agregar este código donde se procesa la respuesta después de registrar una tardanza
+document.addEventListener('DOMContentLoaded', function() {
+    // Verificar si hay un mensaje de SweetAlert en la sesión
+    <?php if (isset($_SESSION['swal_message'])): ?>
+        Swal.fire({
+            title: '<?php echo $_SESSION['swal_message']['title']; ?>',
+            text: '<?php echo $_SESSION['swal_message']['text']; ?>',
+            icon: '<?php echo $_SESSION['swal_message']['icon']; ?>',
+            confirmButtonText: 'Aceptar'
+        });
+        
+        // Actualizar el contador de tardanzas si está disponible
+        <?php if (isset($_SESSION['swal_message']['tardanzas'])): ?>
+            const tardanzasCounter = document.querySelector('.tardanzas-count');
+            if (tardanzasCounter) {
+                tardanzasCounter.textContent = '<?php echo $_SESSION['swal_message']['tardanzas']; ?>';
+            }
+        <?php endif; ?>
+        
+        <?php unset($_SESSION['swal_message']); ?>
+    <?php endif; ?>
 });
 </script>
 </body>
