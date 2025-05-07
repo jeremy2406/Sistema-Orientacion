@@ -557,60 +557,63 @@ td img {
 
 @media (max-width: 480px) {
     .body {
-        padding: 3px;
-        padding-top: 0; 
-        padding-left: 10px;
+        padding: 5px;
+        padding-top: 0;
+        padding-left: 8px;
     }
+
     .table__header {
-        padding: 0.3rem;
+        padding: 0.2rem;
         margin-top: 0;
     }
+
     .table__header h1 {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
+
     .search-box {
         width: 100%;
     }
+
+    .search-box input {
+        font-size: 0.75rem;
+    }
+
     .table__body {
         width: 100%;
-        margin: 0.3rem auto;
+        overflow-x: auto;
+        display: block;
     }
-    table, thead, tbody, tr, td, th {
-        display: block; 
+
+    table {
+        width: max-content;
+        border-collapse: collapse;
     }
-    thead tr {
-        display: none; 
+
+    th, td {
+        min-width: 10rem;
+        white-space: nowrap;
+        font-size: 0.75rem;
+        padding: 0.4rem;
+        text-align: left;
     }
-    tbody tr {
-        margin-bottom: 1rem;
-        border: 1px solid rgba(13, 55, 87, 0.1);
-        border-radius: 0.5rem;
-    }
-    td {
-        text-align: right;
-        padding: 0.5rem;
-        position: relative;
-        font-size: 0.85rem;
-    }
-    td:before {
-        content: attr(data-label); 
-        position: absolute;
-        left: 0.5rem;
-        font-weight: 600;
-        color: #0D3757;
-    }
+
     .modal-content {
-        width: 95%;
-        padding: 15px;
+        width: 90%;
+        padding: 12px;
     }
+
     .faltas-summary {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
     }
+
     .falta-count {
         min-width: 100%;
     }
 }
+
+
 
 /* Colores para las tarjetas de cursos */
 .dashboard .card {

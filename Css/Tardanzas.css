@@ -309,6 +309,62 @@
     }
 }
 
+@media (max-width: 480px) {
+    .registro-tardanzas-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .fecha-selector,
+    .buscador-container {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .fecha-selector input,
+    .buscador-container input,
+    .buscador-container button {
+        width: 100%;
+        font-size: 0.85rem;
+        padding: 0.5rem;
+        box-sizing: border-box;
+    }
+
+    .buscador-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .btn-buscar,
+    .btn-resetear {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+
+    .tabla-tardanzas {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .tabla-tardanzas table {
+        min-width: 600px;
+        width: max-content;
+        border-collapse: collapse;
+    }
+
+    .tabla-tardanzas th,
+    .tabla-tardanzas td {
+        white-space: nowrap;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+        text-align: left;
+    }
+}
+
+
 
 .btn-amarillo {
     background-color: #FFD700;

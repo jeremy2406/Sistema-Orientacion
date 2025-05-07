@@ -18,7 +18,7 @@ include_once ROOT_PATH . '/Componentes/config.php';?>
     <div class="body">
         <main class="table">
             <section class="table__header">
-                <h1>6to DAAI - Jose Maria Mancebo</h1>
+                <h1>4to EEM - Juan Miguel Domínguez</h1>
                 <div class="search-box">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Buscar por nombre..." id="searchInput">

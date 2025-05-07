@@ -64,11 +64,6 @@ if ($pdo) {
             <span>Tardanzas</span>
             <span><?= $totalTardanzas ?></span>
         </div>
-       
-        <div class="card settings">
-            <i class="fas fa-cog"></i>
-            <span>Configuración</span>
-        </div>
     </div>
 </div>
 </body>
