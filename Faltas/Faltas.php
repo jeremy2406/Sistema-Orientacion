@@ -35,7 +35,7 @@
                 </div>
             </section>
             <div class="print-header">
-                <h2>Instituto Politécnico José María Mancebo</h2>
+                <h2>Instituto Politécnico Industrial Don Bosco</h2>
                 <h3>Reporte de Faltas</h3>
                 <p>Fecha de impresión: <?php echo date('d/m/Y H:i:s'); ?></p>
             </div>
