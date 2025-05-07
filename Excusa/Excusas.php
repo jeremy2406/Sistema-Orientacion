@@ -144,6 +144,23 @@
             color: white !important;
             border: 1px solid #0D3757 !important;
         }
+
+        /* Estilos para los estados de validación */
+.estado-valido {
+    background-color: #4CAF50;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.estado-pendiente {
+    background-color: #FFC107;
+    color: black;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
     </style>
 </head>
 <body>
@@ -204,6 +221,7 @@
                                     echo "<td class='text-center'>" . date('d/m/Y', strtotime($row['Fecha'])) . "</td>";
                                     echo "<td class='text-center'>{$row['Tutor']}</td>";
                                     echo "<td class='text-center'>{$row['Justificacion']}</td>";
+                                
                                     echo "</tr>";
                                 }
                                 
@@ -555,6 +573,39 @@
         }
     }
 
+    function onFormSubmit(e) {
+  // Obtener respuestas del formulario
+  var respuestas = e.response.getItemResponses();
+  var datos = {};
+  
+  // Mapear las respuestas a los campos necesarios
+  // Ajusta los índices según el orden de las preguntas en tu formulario
+  datos.nombres = respuestas[0].getResponse();
+  datos.apellidos = respuestas[1].getResponse();
+  datos.grado = respuestas[2].getResponse();
+  datos.seccion = respuestas[3].getResponse();
+  datos.responsable = respuestas[4].getResponse();
+  datos.justificacion = respuestas[5].getResponse();
+  datos.fecha_envio = new Date().toISOString();
+  
+  // URL de tu endpoint
+  var url = "https://sistema-orientacion-cb9d.onrender.com/Excusa/procesar_excusa_forms.php";
+  
+  // Configuración de la solicitud
+  var opciones = {
+    "method": "post",
+    "contentType": "application/json",
+    "payload": JSON.stringify(datos)
+  };
+  
+  // Enviar datos al servidor
+  try {
+    var response = UrlFetchApp.fetch(url, opciones);
+    Logger.log(response.getContentText());
+  } catch (error) {
+    Logger.log("Error: " + error.toString());
+  }
+}
     
     </script>
     <?php
