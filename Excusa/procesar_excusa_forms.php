@@ -59,10 +59,8 @@ try {
     // Determinar si la coincidencia es aceptable (85% o más)
     if ($mejor_similitud >= 85) {
         $matricula = $mejor_match['Matricula'];
-        $estado = "válido";
     } else {
         $matricula = null;
-        $estado = "pendiente";
     }
     
     // 3. Insertar excusa en la base de datos
@@ -78,7 +76,6 @@ try {
         $fecha,
         $data['responsable'],
         $data['justificacion'],
-        $estado
     ]);
     
     if ($resultado) {
@@ -88,7 +85,6 @@ try {
             'data' => [
                 'matricula' => $matricula,
                 'nombre_proporcionado' => $nombre_completo,
-                'estado' => $estado
             ]
         ]);
     } else {
