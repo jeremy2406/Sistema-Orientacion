@@ -39,17 +39,21 @@
         }
         
         .btn-agregar {
-            background-color: #0D3757;
-            color: white;
-            border: 2px solid white;
+            background-color: rgb(75, 180, 26);
+            color: #ffffffff;
+            border: none;
             padding: 8px 15px;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .btn-agregar:hover {
-            background-color: #0a2a42;
+            background-color:rgb(75, 180, 26);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         
         .text-center {
@@ -149,9 +153,19 @@
                 <h1>Registro de Excusas</h1>
                 <div class="header-controls">
                     <input type="date" id="fecha" class="date-input" value="<?php echo date('Y-m-d'); ?>">
-                    <button id="openModalBtn" class="btn-agregar">Agregar Excusa</button>
+                    <div class="search-container">
+                            <input type="text" id="buscarEstudiante" placeholder="Buscar por nombre o apellido">
+                            <button id="btnBuscar">Buscar</button>
+                            <button id="btnImprimir" class="btn-amarillo">Imprimir Reporte</button>
+                            <button id="openModalBtn" class="btn-agregar">Agregar Excusa</button>
+                        </div>
                 </div>
             </section>
+            <div class="print-header">
+                <h2>Instituto Politécnico Industrial Don Bosco</h2>
+                <h3>Reporte de Tardanzas</h3>
+                <p>Fecha de impresión: <?php echo date('d/m/Y H:i:s'); ?></p>
+            </div>
             <section class="table__body">
                 <table>
                     <thead>
@@ -204,6 +218,10 @@
                     </tbody>
                 </table>
             </section>
+            <div class="print-footer">
+                <p>Este documento es un reporte oficial de tardanzas del Instituto Politécnico José María Mancebo.</p>
+                <p>Generado por el Sistema de Orientación.</p>
+            </div>
         </main>
     </div>
 
@@ -456,6 +474,86 @@
         $('#apellido').val('');
         estudianteSeleccionado = null;
     });
+
+    document.getElementById('fecha').addEventListener('change', function() {
+        const fecha = this.value;
+        
+        // Guardar la posición de los controles antes de la actualización
+        const controlsContainer = document.querySelector('.controls-container');
+        const controlsPosition = controlsContainer.getBoundingClientRect();
+        
+        fetch(`actualizar_excusa.php?fecha=${fecha}`)
+            .then(response => response.text())
+            .then(data => {
+                // Solo actualizar el contenido de la tabla, no toda la página
+                document.getElementById('tardanzasBody').innerHTML = data;
+                
+                // Asegurarse de que los controles mantengan su posición
+                window.requestAnimationFrame(() => {
+                    if (window.innerWidth > 992) {
+                        controlsContainer.style.position = 'absolute';
+                        controlsContainer.style.right = '15px';
+                    }
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    document.getElementById('btnBuscar').addEventListener('click', function() {
+        buscarEstudiante();
+    });
+
+    document.getElementById('buscarEstudiante').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            buscarEstudiante();
+        }
+    });
+
+    // Función para buscar estudiante
+    function buscarEstudiante() {
+        const busqueda = document.getElementById('buscarEstudiante').value.trim();
+        if (busqueda.length > 0) {
+            fetch(`buscar_estudiante.php?busqueda=${encodeURIComponent(busqueda)}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('excusasBody').innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }
+
+    // Función para actualizar la tabla
+    document.getElementById('fecha').addEventListener('change', function() {
+        const fecha = this.value;
+        fetch(`actualizar_excusa.php?fecha=${fecha}`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('excusasBody').innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    // Función para imprimir el reporte
+    document.getElementById('btnImprimir').addEventListener('click', function() {
+        // Actualizar la fecha en el encabezado de impresión
+        const fechaActual = new Date();
+        const fechaFormateada = fechaActual.toLocaleString('es-ES');
+        
+        // Preparar para imprimir
+        window.print();
+    });
+
+    function buscarEstudiante() {
+        const busqueda = document.getElementById('buscarEstudiante').value.trim();
+        if (busqueda.length > 0) {
+            fetch(`buscar_estudiante.php?busqueda=${encodeURIComponent(busqueda)}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('excusasBody').innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }
 
     
     </script>
