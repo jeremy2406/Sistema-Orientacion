@@ -21,3 +21,244 @@
     color: #0D3757;
     font-weight: 500;
 } 
+
+.table__header {
+    background-color: #0D3757;
+    padding: 15px 20px;
+    color: white;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    gap: 90px; /* Espacio entre el título y los controles */
+}
+
+.header-content h1 {
+    margin: 0;
+    font-size: 24px;
+    flex: 0 0 auto;
+    padding-right: 90px; /* Espacio a la derecha del título */
+}
+
+.controls-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto;
+}
+
+.date-control {
+    background: white;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.date-input {
+    border: none;
+    outline: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #333;
+}
+
+.search-control {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.search-icon {
+    color: white;
+    margin-right: 8px;
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    width: 100%;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.buttons-control {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-buscar {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: #3498db;
+    color: white;
+}
+
+/* Estilos responsivos */
+@media (min-width: 992px) {
+    .controls-wrapper {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+@media (max-width: 991px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .controls-wrapper {
+        width: 100%;
+        justify-content: flex-end;
+        padding-left: 0;
+    }
+    
+    .header-content h1 {
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .controls-wrapper {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+    }
+    
+    .search-control {
+        width: 100%;
+    }
+    
+    .buttons-control {
+        width: 100%;
+    }
+    
+    .btn-buscar {
+        flex: 1;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-content h1 {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .controls-wrapper {
+        align-items: center;
+    }
+}
+
+
+.btn-amarillo {
+    background-color: #FFD700;
+    color: #ffffffff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-amarillo:hover {
+    background-color: #FFC107;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media print {
+    .controls-wrapper, .table__header button, .no-print {
+        display: none !important;
+    }
+    
+    body, .body, .table, .table__body {
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        background-color: white !important;
+        box-shadow: none !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+    
+    .table__header {
+        display: none !important;
+    }
+    
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin: 0 auto !important;
+    }
+    
+    th, td {
+        border: 1px solid #ddd !important;
+        padding: 8px !important;
+        text-align: center !important;
+    }
+    
+    th {
+        background-color: #f2f2f2 !important;
+        font-weight: bold !important;
+    }
+    
+    .print-header {
+        display: block !important;
+        text-align: center !important;
+        margin: 0 auto 20px auto !important;
+        width: 100% !important;
+    }
+    
+    .print-header h2, .print-header h3 {
+        margin: 5px 0 !important;
+    }
+    
+    .print-footer {
+        display: block !important;
+        text-align: center !important;
+        margin-top: 20px !important;
+        font-size: 12px !important;
+        width: 100% !important;
+    }
+    
+    /* Ocultar el menú y el usuario en el header durante la impresión */
+    header, nav, aside, .usuario-info, footer {
+        display: none !important;
+    }
+    
+    /* Contenedor principal centrado */
+    @page {
+        size: A4;
+        margin: 1cm;
+    }
+    
+    .print-container {
+        display: block !important;
+        width: 90% !important;
+        max-width: 800px !important;
+        margin: 0 auto !important;
+        padding: 20px !important;
+    }
+}
+
+.print-header, .print-footer, .print-container {
+    display: none;
+}

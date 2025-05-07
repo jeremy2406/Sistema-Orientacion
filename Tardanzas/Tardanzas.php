@@ -9,7 +9,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tardanzas</title>
     <link rel="stylesheet" href="../Css/Tardanzas.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/Css/Tardanzas.css">
     <link rel="stylesheet" href="../Css/Estilos.css">
+    <style>
+        .btn-amarillo {
+            background-color: #FFD700;
+            color: #ffffffff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-amarillo:hover {
+            background-color: #FFC107;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media print {
+            .controls-container, .table__header button, .no-print {
+                display: none !important;
+            }
+            
+            body, .body, .table, .table__body {
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+                background-color: white !important;
+                box-shadow: none !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+            }
+            
+            .table__header {
+                display: none !important;
+            }
+            
+            table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin: 0 auto !important;
+            }
+            
+            th, td {
+                border: 1px solid #ddd !important;
+                padding: 8px !important;
+                text-align: center !important;
+            }
+            
+            th {
+                background-color: #f2f2f2 !important;
+                font-weight: bold !important;
+            }
+            
+            .print-header {
+                display: block !important;
+                text-align: center !important;
+                margin: 0 auto 20px auto !important;
+                width: 100% !important;
+            }
+            
+            .print-header h2, .print-header h3 {
+                margin: 5px 0 !important;
+            }
+            
+            .print-footer {
+                display: block !important;
+                text-align: center !important;
+                margin-top: 20px !important;
+                font-size: 12px !important;
+                width: 100% !important;
+            }
+            
+            /* Ocultar el menú y el usuario en el header durante la impresión */
+            header, nav, aside, .usuario-info, footer {
+                display: none !important;
+            }
+            
+            /* Contenedor principal centrado */
+            @page {
+                size: A4;
+                margin: 1cm;
+            }
+            
+            .print-container {
+                display: block !important;
+                width: 90% !important;
+                max-width: 800px !important;
+                margin: 0 auto !important;
+                padding: 20px !important;
+            }
+        }
+        
+        .print-header, .print-footer, .print-container {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="body">
@@ -24,11 +123,16 @@
                         <div class="search-container">
                             <input type="text" id="buscarEstudiante" placeholder="Buscar por nombre o apellido">
                             <button id="btnBuscar">Buscar</button>
-                            <button id="btnReset">Resetear</button>
+                            <button id="btnImprimir" class="btn-amarillo">Imprimir Reporte</button>
                         </div>
                     </div>
                 </div>
             </section>
+            <div class="print-header">
+                <h2>Instituto Politécnico José María Mancebo</h2>
+                <h3>Reporte de Tardanzas</h3>
+                <p>Fecha de impresión: <?php echo date('d/m/Y H:i:s'); ?></p>
+            </div>
             <section class="table__body">
                 <table>
                     <thead>
@@ -81,6 +185,10 @@
                     </tbody>
                 </table>
             </section>
+            <div class="print-footer">
+                <p>Este documento es un reporte oficial de tardanzas del Instituto Politécnico José María Mancebo.</p>
+                <p>Generado por el Sistema de Orientación.</p>
+            </div>
         </main>
     </div>
 
@@ -119,15 +227,14 @@
         }
     });
 
-    document.getElementById('btnReset').addEventListener('click', function() {
-        document.getElementById('buscarEstudiante').value = '';
-        document.getElementById('fecha').value = '<?php echo date('Y-m-d'); ?>';
-        fetch(`actualizar_tardanzas.php?fecha=<?php echo date('Y-m-d'); ?>`)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('tardanzasBody').innerHTML = data;
-            })
-            .catch(error => console.error('Error:', error));
+    // Función para imprimir el reporte
+    document.getElementById('btnImprimir').addEventListener('click', function() {
+        // Actualizar la fecha en el encabezado de impresión
+        const fechaActual = new Date();
+        const fechaFormateada = fechaActual.toLocaleString('es-ES');
+        
+        // Preparar para imprimir
+        window.print();
     });
 
     function buscarEstudiante() {
