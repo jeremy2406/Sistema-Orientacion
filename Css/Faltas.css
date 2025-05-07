@@ -21,3 +21,155 @@
     color: #0D3757;
     font-weight: 500;
 } 
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .controls-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 0.75rem;
+    }
+
+    .date-control,
+    .search-control,
+    .buttons-control {
+        width: 100%;
+    }
+
+    .search-control {
+        padding: 0.5rem;
+        background: #ffffff15;
+    }
+
+    .search-icon {
+        color: white;
+        margin-right: 8px;
+    }
+
+    .search-input {
+        font-size: 0.9rem;
+    }
+
+    .date-input {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+
+    .buttons-control {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-buscar,
+    .btn-resetear {
+        flex: 1;
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .table__body {
+        overflow-x: auto;
+    }
+
+    .table__body table {
+        min-width: 700px; 
+        width: max-content;
+        border-collapse: collapse;
+    }
+
+    .table__body th,
+    .table__body td {
+        white-space: nowrap;
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Ajustes adicionales para móviles pequeños */
+@media (max-width: 480px) {
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        text-align: center;
+        margin: auto;
+    }
+
+    .header-content h1 {
+        font-size: 20px;
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+
+    .controls-wrapper {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 0.5rem;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .date-control,
+    .search-control,
+    .buttons-control {
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .search-control {
+        padding: 6px 10px;
+    }
+
+    .search-input {
+        font-size: 0.8rem;
+    }
+
+    .date-input {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+        width: 100%;
+    }
+
+    .buttons-control {
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-buscar,
+    .btn-resetear {
+        flex: 1;
+        padding: 6px;
+        font-size: 0.75rem;
+        border-radius: 4px;
+    }
+
+    .table__body {
+        overflow-x: auto;
+    }
+
+    .table__body table {
+        min-width: 600px;
+        font-size: 0.8rem;
+    }
+
+    .table__body th,
+    .table__body td {
+        white-space: nowrap;
+        padding: 6px 8px;
+    }
+}
+
