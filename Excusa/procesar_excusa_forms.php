@@ -68,8 +68,8 @@ try {
     // 3. Insertar excusa en la base de datos
     $stmt = $pdo->prepare('
         INSERT INTO "Excusas" 
-        ("Matricula_estudiantes", "Fecha", "Tutor", "Justificacion", "Estado") 
-        VALUES (?, ?, ?, ?, ?)
+        ("Matricula_estudiantes", "Fecha", "Tutor", "Justificacion") 
+        VALUES (?, ?, ?, ?)
     ');
     
     $fecha = date('Y-m-d H:i:s', strtotime($data['fecha_envio']));

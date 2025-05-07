@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Excusas</title>
+    <link rel="stylesheet" href="../Css/Tardanzas.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/Css/Tardanzas.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/Css/Estilos.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
