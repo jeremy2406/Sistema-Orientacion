@@ -301,7 +301,7 @@
             </div>
                 <div class="form-group">
                     <label for="fecha_excusa">Fecha:</label>
-                    <input type="date" id="fecha_excusa" name="fecha_excusa" value="<?php echo date('Y-m-d'); ?>" required>
+                    <input type="date" id="fecha_excusa" name="fecha_excusa" value="<?php echo date('d-m-Y'); ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="excusa_comun">Excusas más comunes:</label>
