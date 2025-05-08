@@ -26,8 +26,16 @@ if (
     exit;
 }
 
+// Función para normalizar texto (eliminar acentos y caracteres especiales)
+function normalizar_texto($texto) {
+    $texto = strtolower(trim($texto));
+    $no_permitidas = array("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","Ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç");
+    $permitidas = array("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","A","A","E","I","O","U","c","C");
+    return str_replace($no_permitidas, $permitidas, $texto);
+}
+
 // Normalizar nombres para búsqueda
-$nombre_completo = strtolower(trim($data['nombres'] . ' ' . $data['apellidos']));
+$nombre_completo = normalizar_texto($data['nombres'] . ' ' . $data['apellidos']);
 
 // Conectar a la base de datos
 $pdo = conectarDB();
@@ -48,7 +56,7 @@ try {
     $mejor_similitud = 0;
     
     foreach ($estudiantes as $est) {
-        $est_nombre = strtolower(trim($est['Nombre'] . ' ' . $est['Apellido']));
+        $est_nombre = normalizar_texto($est['Nombre'] . ' ' . $est['Apellido']);
         similar_text($nombre_completo, $est_nombre, $sim);
         if ($sim > $mejor_similitud) {
             $mejor_similitud = $sim;
@@ -56,8 +64,8 @@ try {
         }
     }
     
-    // Determinar si la coincidencia es aceptable (85% o más)
-    if ($mejor_similitud >= 85) {
+    // Determinar si la coincidencia es aceptable (75% o más)
+    if ($mejor_similitud >= 75) {
         $matricula = $mejor_match['Matricula'];
         
         // 3. Insertar excusa en la base de datos solo si tenemos una matrícula válida
@@ -85,6 +93,8 @@ try {
                 'data' => [
                     'matricula' => $matricula,
                     'nombre_proporcionado' => $nombre_completo,
+                    'nombre_encontrado' => $mejor_match['Nombre'] . ' ' . $mejor_match['Apellido'],
+                    'similitud' => $mejor_similitud
                 ]
             ]);
         } else {
@@ -94,7 +104,12 @@ try {
         // No se encontró una coincidencia aceptable para el estudiante
         echo json_encode([
             'status' => 'error', 
-            'message' => 'No se encontró un estudiante que coincida con el nombre proporcionado: ' . $data['nombres'] . ' ' . $data['apellidos']
+            'message' => 'No se encontró un estudiante que coincida con el nombre proporcionado: ' . $data['nombres'] . ' ' . $data['apellidos'],
+            'debug' => [
+                'mejor_coincidencia' => $mejor_match ? $mejor_match['Nombre'] . ' ' . $mejor_match['Apellido'] : 'Ninguna',
+                'similitud' => $mejor_similitud,
+                'nombre_buscado' => $nombre_completo
+            ]
         ]);
     }
     
