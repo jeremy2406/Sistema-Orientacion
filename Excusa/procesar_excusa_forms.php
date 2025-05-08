@@ -77,7 +77,7 @@ try {
         
         // Convertir la fecha al formato correcto (d-m-Y)
         $fecha_original = strtotime($data['fecha_envio']);
-        $fecha = date('d-m-Y', $fecha_original);
+        $fecha = date('Y-d-m', $fecha_original);
         
         $resultado = $stmt->execute([
             $matricula,
