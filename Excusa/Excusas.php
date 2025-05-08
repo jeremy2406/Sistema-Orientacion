@@ -181,7 +181,7 @@
             </section>
             <div class="print-header">
                 <h2>Instituto Politécnico Industrial Don Bosco</h2>
-                <h3>Reporte de Tardanzas</h3>
+                <h3>Reporte de Excusas</h3>
                 <p>Fecha de impresión: <?php echo date('d/m/Y H:i:s'); ?></p>
             </div>
             <section class="table__body">
@@ -238,7 +238,7 @@
                 </table>
             </section>
             <div class="print-footer">
-                <p>Este documento es un reporte oficial de tardanzas del Instituto Politécnico José María Mancebo.</p>
+                <p>Este documento es un reporte oficial de tardanzas del Instituto Politécnico Industrial Don Bosco.</p>
                 <p>Generado por el Sistema de Orientación.</p>
             </div>
         </main>

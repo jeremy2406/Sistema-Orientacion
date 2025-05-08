@@ -88,7 +88,7 @@
                 </table>
             </section>
             <div class="print-footer">
-                <p>Este documento es un reporte oficial de tardanzas del Instituto Politécnico José María Mancebo.</p>
+                <p>Este documento es un reporte oficial de tardanzas del Instituto Politécnico Industrial Don Bosco.</p>
                 <p>Generado por el Sistema de Orientación.</p>
             </div>
         </main>

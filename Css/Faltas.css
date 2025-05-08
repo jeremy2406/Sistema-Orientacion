@@ -372,6 +372,10 @@
         background-color: #f2f2f2 !important;
         font-weight: bold !important;
     }
+
+    #nombre{
+        width: 100px;
+    }
     
     .print-header {
         display: block !important;
