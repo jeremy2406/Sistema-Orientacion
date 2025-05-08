@@ -59,39 +59,43 @@ try {
     // Determinar si la coincidencia es aceptable (85% o más)
     if ($mejor_similitud >= 85) {
         $matricula = $mejor_match['Matricula'];
-    } else {
-        $matricula = null;
-    }
-    
-    // 3. Insertar excusa en la base de datos
-    $stmt = $pdo->prepare('
-        INSERT INTO "Excusas" 
-        ("Matricula_estudiantes", "Fecha", "Tutor", "Justificacion") 
-        VALUES (?, ?, ?, ?)
-    ');
-    
-    // Convertir la fecha al formato correcto (d-m-Y)
-    $fecha_original = strtotime($data['fecha_envio']);
-    $fecha = date('d-m-Y', $fecha_original);
-    
-    $resultado = $stmt->execute([
-        $matricula,
-        $fecha,
-        $data['responsable'],
-        $data['justificacion'],
-    ]);
-    
-    if ($resultado) {
-        echo json_encode([
-            'status' => 'ok', 
-            'message' => 'Excusa registrada correctamente',
-            'data' => [
-                'matricula' => $matricula,
-                'nombre_proporcionado' => $nombre_completo,
-            ]
+        
+        // 3. Insertar excusa en la base de datos solo si tenemos una matrícula válida
+        $stmt = $pdo->prepare('
+            INSERT INTO "Excusas" 
+            ("Matricula_estudiantes", "Fecha", "Tutor", "Justificacion") 
+            VALUES (?, ?, ?, ?)
+        ');
+        
+        // Convertir la fecha al formato correcto (d-m-Y)
+        $fecha_original = strtotime($data['fecha_envio']);
+        $fecha = date('d-m-Y', $fecha_original);
+        
+        $resultado = $stmt->execute([
+            $matricula,
+            $fecha,
+            $data['responsable'],
+            $data['justificacion'],
         ]);
+        
+        if ($resultado) {
+            echo json_encode([
+                'status' => 'ok', 
+                'message' => 'Excusa registrada correctamente',
+                'data' => [
+                    'matricula' => $matricula,
+                    'nombre_proporcionado' => $nombre_completo,
+                ]
+            ]);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'No se pudo registrar la excusa']);
+        }
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'No se pudo registrar la excusa']);
+        // No se encontró una coincidencia aceptable para el estudiante
+        echo json_encode([
+            'status' => 'error', 
+            'message' => 'No se encontró un estudiante que coincida con el nombre proporcionado: ' . $data['nombres'] . ' ' . $data['apellidos']
+        ]);
     }
     
 } catch (PDOException $e) {
