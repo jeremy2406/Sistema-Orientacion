@@ -9,4 +9,5 @@
 - 8 de Mayo del 2025
 
 # Descripcion del proyecto:
-Un sistema hecho para el departamento de Orientacion y Diciplina, el cual automatiza los procesos que se hacen en dicho departamento. En el se pueden hacer todas las funciones que dia a dia se realizan, como: Excusas, Tardanzas, Agendar dias, Faltas y mucho mas 
+*Sistema de Gestión para el Departamento de Orientación y Disciplina*
+Este sistema ha sido diseñado específicamente para automatizar y optimizar todas las tareas diarias del Departamento de Orientación y Disciplina. Permite registrar y gestionar de forma eficiente procesos clave como la justificación de excusas, el control de tardanzas, la planificación de citas, el seguimiento de faltas disciplinarias y muchas otras funciones esenciales. Su objetivo es facilitar el trabajo del personal, mejorar la organización interna y asegurar un seguimiento más preciso del historial de cada estudiante.
